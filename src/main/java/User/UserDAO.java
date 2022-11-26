@@ -8,6 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ *  
+CREATE TABLE users (
+user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+email VARCHAR NOT NULL,
+password VARCHAR NOT NULL,
+name VARCHAR NOT NULL,
+is_admin Boolean DEFAULT FALSE
+);
+
+ */
 
 public class UserDAO {
 
@@ -26,9 +37,9 @@ public class UserDAO {
 		return conn;
 	}
 
-	public int signUp(User user) throws Exception { //회원가입
+	public int signUp(Users user) throws Exception { //회원가입
 		Connection conn = open();
-		String sql = "insert into USER(email,password,name) values(?,?,?)";
+		String sql = "insert into USERS(email,password,name) values(?,?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 			pstmt.setString(1, user.getEmail());
@@ -42,11 +53,27 @@ public class UserDAO {
 		
 	}
 	
-	
-	
-	public int signIn(User user) throws Exception { //로그인
+	public boolean checkDuplicate(String email) throws Exception  {
 		Connection conn = open();
-		String sql = "SELECT password FROM USER WHERE email = ?";
+		String sql = "SELECT email FROM USERS WHERE email = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, email);
+		ResultSet rs = pstmt.executeQuery();
+		try (conn; pstmt; rs) {
+			if(rs.next()) {
+				return true; //가입된 이메일이 있다면 true
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public int signIn(Users user) throws Exception { //로그인
+		Connection conn = open();
+		String sql = "SELECT password FROM USERS WHERE email = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		try (conn; pstmt; rs) {
@@ -68,15 +95,15 @@ public class UserDAO {
 
 	
 
-	public List<User> getUserAll() throws Exception { //전체 회원정보 가져오기[관리자 기능] 
+	public List<Users> getUserAll() throws Exception { //전체 회원정보 가져오기[관리자 기능] 
 		Connection conn = open();
-		List<User> userList = new ArrayList<>();
-		String sql = "select user_id, email, name from USER";
+		List<Users> userList = new ArrayList<>();
+		String sql = "select users_id, email, name from USER";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		try (conn; pstmt; rs) {
 			while (rs.next()) {
-				User user = new User();
+				Users user = new Users();
 				user.setUser_id(rs.getInt("id"));
 				user.setEmail(rs.getString("email"));
 				user.setName(rs.getString("name"));
@@ -89,7 +116,7 @@ public class UserDAO {
 
 	public void deleteUser(int userId) throws SQLException { //회원 탈퇴기능[관리자 기능]
 		Connection conn = open();
-		String sql = "delete from user where id=?";
+		String sql = "delete from users where id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 			pstmt.setInt(1, userId);

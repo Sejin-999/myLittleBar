@@ -1,10 +1,18 @@
 package User;
 
-public class User {
+public class Users {
 	private int user_id;
 	private String email;
 	private String name;
 	private String password;
+	private boolean is_admin;
+	
+	public boolean isIs_admin() {
+		return is_admin;
+	}
+	public void setIs_admin(boolean is_admin) {
+		this.is_admin = is_admin;
+	}
 	public int getUser_id() {
 		return user_id;
 	}
