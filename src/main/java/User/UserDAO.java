@@ -66,14 +66,19 @@ public class UserDAO {
 	
 	public int signIn(Users user) throws Exception { //로그인
 		Connection conn = DatabaseUtil.open();
-		String sql = "SELECT password FROM USERS WHERE email = ?";
+		String sql = "SELECT password, is_Admin FROM USERS WHERE email = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, user.getEmail());
 		ResultSet rs = pstmt.executeQuery();
 		try (conn; pstmt; rs) {
 			if(rs.next()) {
-				if(rs.getString(1).equals(user.getPassword()))
-					return 1; //성공
+				if(rs.getString("password").equals(user.getPassword()))
+					if(rs.getBoolean("is_Admin")) {
+						return 2;
+					}
+					else {
+						return 1; //성공
+					}
 				else {
 					return 0; //실패
 				}

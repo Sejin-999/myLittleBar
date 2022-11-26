@@ -34,7 +34,7 @@ if(session.getAttribute("isAdmin") != null)
  	if(isAdmin) {
  	%>
  	
-  <div class="collapse navbar-collapse" id="collapsibleNavbar"> //관리자
+  <div class="collapse navbar-collapse" id="collapsibleNavbar"> 
     <ul class="navbar-nav text-center ml-auto">
      <li class="nav-link pr-5">${userEmail}</li>
       <li class="nav-item">

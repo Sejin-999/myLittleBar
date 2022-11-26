@@ -117,6 +117,12 @@ public class UserController extends HttpServlet {
 				return "./signIn.jsp";
 			}
 			
+			if(dao.signIn(user) == 2) {
+			     session.setAttribute("userEmail",user.getEmail());
+			     session.setAttribute("isAdmin", true);
+			     return "./searchList.jsp";
+			}
+			
 			if(dao.signIn(user) == 1) {
 			     session.setAttribute("userEmail",user.getEmail());
 			     return "./searchList.jsp";
