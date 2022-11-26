@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Util.DatabaseUtil;
+
 /*
  *  
 CREATE TABLE users (
@@ -26,19 +28,10 @@ public class UserDAO {
 	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/test";
 //향후 mysql로 변경할 것 , JDPC_URL 각자 자신의 환경과 맞춰 구현하기.
 
-	public Connection open() {
-		Connection conn = null;
-		try {
-			Class.forName(JDBC_DRIVER);
-			conn = DriverManager.getConnection(JDBC_URL, "tukorea", "1234");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return conn;
-	}
+	
 
 	public int signUp(Users user) throws Exception { //회원가입
-		Connection conn = open();
+		Connection conn = DatabaseUtil.open();
 		String sql = "insert into USERS(email,password,name) values(?,?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
@@ -54,7 +47,7 @@ public class UserDAO {
 	}
 	
 	public boolean checkDuplicate(String email) throws Exception  {
-		Connection conn = open();
+		Connection conn = DatabaseUtil.open();
 		String sql = "SELECT email FROM USERS WHERE email = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, email);
@@ -72,7 +65,7 @@ public class UserDAO {
 	}
 	
 	public int signIn(Users user) throws Exception { //로그인
-		Connection conn = open();
+		Connection conn = DatabaseUtil.open();
 		String sql = "SELECT password FROM USERS WHERE email = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, user.getEmail());
@@ -97,7 +90,7 @@ public class UserDAO {
 	
 
 	public List<Users> getUserAll() throws Exception { //전체 회원정보 가져오기[관리자 기능] 
-		Connection conn = open();
+		Connection conn = DatabaseUtil.open();
 		List<Users> userList = new ArrayList<>();
 		String sql = "select users_id, email, name from USER";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -116,7 +109,7 @@ public class UserDAO {
 
 
 	public void deleteUser(int userId) throws SQLException { //회원 탈퇴기능[관리자 기능]
-		Connection conn = open();
+		Connection conn = DatabaseUtil.open();
 		String sql = "delete from users where id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {

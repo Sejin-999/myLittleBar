@@ -38,10 +38,13 @@
  				<input type="submit" class="btn btn-secondary form-control mt-2" value="회원가입">
  			</form>
  		
-		<% if("${error}" != null) {%>
+		<% if("${error}" != null && !"${error}".equals("")) {%>
  			<div class="alert alert-danger text-center mt-2" role="alert">${error}</div>
- 			<% } %>
- 	</div>
+ 			<% 
+ 			}
+			%>
+ 			</div>
+ 			
  	
  	
  </div>

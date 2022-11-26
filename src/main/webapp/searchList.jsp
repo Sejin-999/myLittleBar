@@ -17,9 +17,15 @@
 </head>
 <body style="background-color: #230312;">
 <%@ include file="../navbar.jsp" %>
+
 	<div class="container" style="color:white; margin-bottom:27rem;">
 	랄라라랄</div>
-	<%@ include file="../footer.jsp" %>
+
 </body>
+
+<footer class="fixed-bottom">
+<%@ include file="../footer.jsp" %>
+</footer>
+
 
 </html>

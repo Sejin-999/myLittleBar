@@ -34,9 +34,9 @@ if(session.getAttribute("isAdmin") != null)
  	if(isAdmin) {
  	%>
  	
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  <div class="collapse navbar-collapse" id="collapsibleNavbar"> //관리자
     <ul class="navbar-nav text-center ml-auto">
-    <li>${userEmail}</li>
+     <li class="nav-link pr-5">${userEmail}</li>
       <li class="nav-item">
         <a class="nav-link" href="#">유저 관리</a>
       </li>
@@ -48,7 +48,7 @@ if(session.getAttribute("isAdmin") != null)
   <% 
  	} else if(userEmail != null) {
  	%>
-  	 <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  	 <div class="collapse navbar-collapse" id="collapsibleNavbar"> 
   	
     <ul class="navbar-nav text-center ml-auto">
       <li class="nav-link pr-5">${userEmail}</li>
