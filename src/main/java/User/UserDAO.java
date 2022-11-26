@@ -75,6 +75,7 @@ public class UserDAO {
 		Connection conn = open();
 		String sql = "SELECT password FROM USERS WHERE email = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user.getEmail());
 		ResultSet rs = pstmt.executeQuery();
 		try (conn; pstmt; rs) {
 			if(rs.next()) {

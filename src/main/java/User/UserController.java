@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -101,6 +102,43 @@ public class UserController extends HttpServlet {
 			return "./signUp.jsp";
 		}
 		return "redirect:/userController?action=defaultView"; // “redirect:/” 이후에 오는 경로 부분에서 “프로젝트명” 다음에 오는 경로만 작성
+	}
+	
+	public String signIn(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Users user = new Users();
+		
+		try {
+			
+			BeanUtils.populate(user, request.getParameterMap());
+			
+			if(!dao.checkDuplicate(user.getEmail())) {
+				request.setAttribute("error", "가입되지 않은 이메일입니다.");
+				return "./signIn.jsp";
+			}
+			
+			if(dao.signIn(user) == 1) {
+			     session.setAttribute("userEmail",user.getEmail());
+			     return "./searchList.jsp";
+			}
+			else {
+				request.setAttribute("error", "비밀번호가 일치하지 않습니다.");
+				return "./signIn.jsp";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("error", "로그인 중 오류가 발생하였습니다.");
+			return "./signIn.jsp";
+		}
+		
+	}
+	
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	    session.invalidate();
+     return "./searchList.jsp";
+			
+		
 	}
 	
 //	public String updateNews(HttpServletRequest request) {
