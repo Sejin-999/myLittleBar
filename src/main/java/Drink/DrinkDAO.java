@@ -15,35 +15,18 @@ public class DrinkDAO {
 	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/tukoreadb";
 	
 	//해당 베이스에 대한 술 리스트 가져오기
-//	public List<Drinks> getDrinkAll(int base_id) throws Exception{
-//		Connection conn=DatabaseUtil.open();
-//		List<Drinks> drinkList=new ArrayList<>();
-//		String sql="select drink_id, image, name from Drink where base_id=?";
-//		PreparedStatement pstmt=conn.prepareStatement(sql);
-//		pstmt.setInt(1, base_id);
-//		ResultSet rs=pstmt.executeQuery();
-//		
-//		try(conn;pstmt;rs){
-//			while(rs.next()) {
-//				Drinks d=new Drinks();
-//				d.setDrink_id(rs.getInt("drink_id"));
-//				d.setImage(rs.getString("image"));
-//				d.setName(rs.getString("name"));
-//				drinkList.add(d);
-//			}
-//			return drinkList;
-//		}
-//	}
-	public List<Drinks> getDrinkAll() throws Exception{
+	public List<Drinks> getDrinkAll(int base_id) throws Exception{
 		Connection conn=DatabaseUtil.open();
 		List<Drinks> drinkList=new ArrayList<>();
-		String sql="select image, name from drink";
+		String sql="select drink_id, image, name from Drink where base_id=?";
 		PreparedStatement pstmt=conn.prepareStatement(sql);
+		pstmt.setInt(1, base_id);
 		ResultSet rs=pstmt.executeQuery();
 		
 		try(conn;pstmt;rs){
 			while(rs.next()) {
 				Drinks d=new Drinks();
+				d.setDrink_id(rs.getInt("drink_id"));
 				d.setImage(rs.getString("image"));
 				d.setName(rs.getString("name"));
 				drinkList.add(d);
@@ -51,6 +34,27 @@ public class DrinkDAO {
 			return drinkList;
 		}
 	}
+
+	
+	public Base getBase(int base_id) throws Exception{
+		Connection conn=DatabaseUtil.open();
+		Base b=new Base();
+		String sql="select image, name from base where base_id=?";
+		PreparedStatement pstmt=conn.prepareStatement(sql);
+		pstmt.setInt(1, base_id);
+		ResultSet rs=pstmt.executeQuery();
+		rs.next();
+		try(conn;pstmt;rs){
+			b.setBase_id(rs.getInt("base_id"));
+			b.setImage(rs.getString("image"));
+			b.setName(rs.getString("name"));
+			pstmt.executeQuery();
+			return b;
+		}
+		
+	}
+	
+
 	
 	//찜 목록 리스트 가져오기
 //	public List<Likes> getLikeAll(int user_id) throws Exception{
