@@ -68,7 +68,7 @@ public class DrinkController extends HttpServlet {
 //		int base_id=Integer.parseInt(request.getParameter("base_id"));
 		List<Drinks> drinkList = null;
 		try {
-			drinkList=dao.getDrinkAll();
+			drinkList=dao.getDrinkAll(1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,6 +76,7 @@ public class DrinkController extends HttpServlet {
 		request.setAttribute("drinklist", drinkList);
 		return "searchList.jsp";
 	}
+	
 //	
 //	public String getLikeList(HttpServletRequest request) {
 //		int user_id=Integer.parseInt(request.getParameter("user_id"));
@@ -88,4 +89,17 @@ public class DrinkController extends HttpServlet {
 //		request.setAttribute("likelist", likelist);
 //		return "likeList.jsp";
 //	}
+	
+	public String getBase(HttpServletRequest request) throws Exception {
+//		int base_id=Integer.parseInt(request.getParameter("base_id"));
+		try {
+			Base b=dao.getBase(1);
+			request.setAttribute("base", b);
+		}catch(SQLException e) {
+			e.printStackTrace();
+			ctx.log("베이스를 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
+		}
+		return "searchList.jsp";
+	}
 }
