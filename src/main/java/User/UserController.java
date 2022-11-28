@@ -28,7 +28,7 @@ public class UserController extends HttpServlet {
 	private UserDAO dao;
 	private ServletContext ctx;
 // 웹 리소스 기본 경로 지정
-	private final String START_PAGE = "./searchList.jsp";
+	private final String START_PAGE = "./main.jsp";
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -120,12 +120,12 @@ public class UserController extends HttpServlet {
 			if(dao.signIn(user) == 2) {
 			     session.setAttribute("userEmail",user.getEmail());
 			     session.setAttribute("isAdmin", true);
-			     return "./searchList.jsp";
+			     return "./main.jsp";
 			}
 			
 			if(dao.signIn(user) == 1) {
 			     session.setAttribute("userEmail",user.getEmail());
-			     return "./searchList.jsp";
+			     return "./main.jsp";
 			}
 			else {
 				request.setAttribute("error", "비밀번호가 일치하지 않습니다.");
@@ -142,7 +142,7 @@ public class UserController extends HttpServlet {
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 	    session.invalidate();
-     return "./searchList.jsp";
+     return "./main.jsp";
 			
 		
 	}
