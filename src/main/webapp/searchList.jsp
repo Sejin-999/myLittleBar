@@ -22,8 +22,9 @@
 			<tbody>
 				<tr>
 					<td style="width: 35%; text-align: center; padding-right: 5%;">
-						<h1 style="margin-top: 2%; margin-bottom: 5%;">${base.name}</h1>
+						<h1 style="margin-top: 2%; margin-bottom: 5%;">${drink.base_name}</h1>
 					</td>
+
 
 					<td style="width: 50%; vertical-align: top; text-align: center;">
 						<h1 style="margin-top: 2%; margin-bottom: 5%;">Drinks</h1>
@@ -31,8 +32,9 @@
 				</tr>
 				<tr>
 					<td style="width: 35%; vertical-align: top; padding-right: 5%;">
-						<img src="${base.image}" style="width: 100%">
+						<img src="${drink.base_image}" style="width: 100%">
 					</td>
+
 
 					<td>
 						<table style="width: 100%; text-align: center;">
@@ -46,7 +48,7 @@
 											<c:if test="{i%j==0}">
 												<tr style="padding-right: 5%; padding-left: 5%;">
 											</c:if>
-											<td 
+											<td
 												style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
 												<a href="#">
 													<figure>
@@ -56,27 +58,23 @@
 											</a>
 											</td>
 											<c:if test="${i%j == j-1}">
-												</tr>
-											</c:if>
-											<c:set var="i" value="${i+1}" />
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<div
-											class="alert alert-danger alert-dismissible fade show mt-3">
-											에러 발생: ${error}
-											<button type="button" class="btn-close"
-												data-bs-dismiss="alert"></button>
-										</div>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
-					</td>
-
-
 				</tr>
+				</c:if>
+				<c:set var="i" value="${i+1}" />
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<div class="alert alert-danger alert-dismissible fade show mt-3">
+						에러 발생: ${error}</div>
+				</c:otherwise>
+				</c:choose>
 			</tbody>
+		</table>
+		</td>
+
+
+		</tr>
+		</tbody>
 		</table>
 
 	</div>

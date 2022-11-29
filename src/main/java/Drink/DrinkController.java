@@ -20,7 +20,7 @@ public class DrinkController extends HttpServlet {
 	private DrinkDAO dao;
 	private ServletContext ctx;
 	
-	private final String START_PAGE="./searchList.jsp";
+	private final String START_PAGE="./main.jsp";
     
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -77,18 +77,18 @@ public class DrinkController extends HttpServlet {
 		return "searchList.jsp";
 	}
 	
-//	
-//	public String getLikeList(HttpServletRequest request) {
+	
+	public String getCartAll(HttpServletRequest request) {
 //		int user_id=Integer.parseInt(request.getParameter("user_id"));
-//		List<Likes> likelist=null;
-//		try{
-//			likelist=dao.getLikeAll();
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		request.setAttribute("likelist", likelist);
-//		return "likeList.jsp";
-//	}
+		List<Cart> cartlist=null;
+		try{
+			cartlist=dao.getCartAll(1);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("cartlist", cartlist);
+		return "cartlist.jsp";
+	}
 	
 	public String getBase(HttpServletRequest request) throws Exception {
 //		int base_id=Integer.parseInt(request.getParameter("base_id"));
