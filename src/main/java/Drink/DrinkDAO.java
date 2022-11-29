@@ -18,11 +18,10 @@ public class DrinkDAO {
 	public List<Drinks> getDrinkAll(int base_id) throws Exception{
 		Connection conn=DatabaseUtil.open();
 		List<Drinks> drinkList=new ArrayList<>();
-		String sql="select drink_id, image, name from Drink where base_id=?";
-		PreparedStatement pstmt=conn.prepareStatement(sql);
+		String listsql="select drink_id, image, name from Drink where base_id=?";
+		PreparedStatement pstmt=conn.prepareStatement(listsql);
 		pstmt.setInt(1, base_id);
 		ResultSet rs=pstmt.executeQuery();
-		
 		try(conn;pstmt;rs){
 			while(rs.next()) {
 				Drinks d=new Drinks();
@@ -57,25 +56,25 @@ public class DrinkDAO {
 
 	
 	//찜 목록 리스트 가져오기
-//	public List<Likes> getLikeAll(int user_id) throws Exception{
-//		Connection conn=DatabaseUtil.open();
-//		List<Likes> likeList=new ArrayList<>();
-//		String sql="select like_id, drink_id from Likes where user_id=?";
-//		PreparedStatement pstmt=conn.prepareStatement(sql);
-//		pstmt.setInt(1, user_id);
-//		ResultSet rs=pstmt.executeQuery();
-//		rs.next();
-//		try(conn;pstmt;rs){
-//			while(rs.next()) {
-//				Likes like=new Likes();
-//				like.setLike_id(rs.getInt("like_id"));
-//				like.setUser_id(rs.getInt("drink_id"));
-//				likeList.add(like);
-//			}
-//			return likeList;
-//		}
-//
-//	}
+	public List<Cart> getCartAll(int user_id) throws Exception{
+		Connection conn=DatabaseUtil.open();
+		List<Cart> cartlist=new ArrayList<>();
+		String sql="select like_id, drink_id from Likes where user_id=?";
+		PreparedStatement pstmt=conn.prepareStatement(sql);
+		pstmt.setInt(1, user_id);
+		ResultSet rs=pstmt.executeQuery();
+		rs.next();
+		try(conn;pstmt;rs){
+			while(rs.next()) {
+				Cart c=new Cart();
+				c.setLike_id(rs.getInt("like_id"));
+				c.setUser_id(rs.getInt("drink_id"));
+				cartlist.add(c);
+			}
+			return cartlist;
+		}
+
+	}
 	
 	
 }

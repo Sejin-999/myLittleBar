@@ -16,11 +16,11 @@
 <title>SearchList</title>
 </head>
 <body style="background-color: #230312;">
-<%@ include file="../navbar.jsp" %>
-
-	<div class="container" style="color:white; margin-bottom:27rem;">
-	랄라라랄</div>
-
+	<%@ include file="../navbar.jsp"%>
+		<div class="container" style="color: white;">
+			<a href="drinkController?action=getSearchList&base_id=1">리스트 이동</a>
+		</div>
+	<%@ include file="../footer.jsp"%>
 </body>
 
 <footer class="fixed-bottom">
