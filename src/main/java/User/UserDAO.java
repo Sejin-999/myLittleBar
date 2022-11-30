@@ -97,15 +97,16 @@ public class UserDAO {
 	public List<Users> getUserAll() throws Exception { //전체 회원정보 가져오기[관리자 기능] 
 		Connection conn = DatabaseUtil.open();
 		List<Users> userList = new ArrayList<>();
-		String sql = "select users_id, email, name from USER";
+		String sql = "select user_id, email, is_admin, name from USERS ORDER BY is_admin DESC";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		try (conn; pstmt; rs) {
 			while (rs.next()) {
 				Users user = new Users();
-				user.setUser_id(rs.getInt("id"));
+				user.setUser_id(rs.getInt("user_id"));
 				user.setEmail(rs.getString("email"));
 				user.setName(rs.getString("name"));
+				user.setIs_admin(rs.getBoolean("is_admin"));
 				userList.add(user);
 			}
 			return userList;
