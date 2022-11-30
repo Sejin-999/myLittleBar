@@ -7,13 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384- b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+	crossorigin="anonymous"></script> -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-<link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet"
-	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-	crossorigin="anonymous">
-<script src="./resources/js/jquery-3.5.1.min.js"></script>
-<script src="./resources/js/bootstrap.bundle.min.js"></script>
 <title>likeList</title>
 </head>
 <body style="background-color: #230312;">
@@ -33,8 +32,8 @@
 								<c:set var="i" value="0" />
 								<c:set var="j" value="4" />
 								<c:choose>
-									<c:when test="${likedrink != null && fn:length(likedrink)>0}">
-										<c:forEach var="like" items="${likedrink}"
+									<c:when test="${cartlist != null && fn:length(cartlist)>0}">
+										<c:forEach var="cart" items="${cartlist}"
 											varStatus="status">
 											<c:if test="{i%j==0}">
 												<tr style="padding-right: 5%; padding-left: 5%;">
@@ -43,8 +42,8 @@
 												style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
 												<a href="#">
 													<figure>
-														<img src="${like.image}" style="width: 100%">
-														<figcaption>${like.name}</figcaption>
+														<img src="${drink.image}" style="width: 100%">
+														<figcaption>${drink.name}</figcaption>
 													</figure>
 											</a>
 											</td>

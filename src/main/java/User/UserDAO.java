@@ -25,7 +25,7 @@ is_admin Boolean DEFAULT FALSE
 public class UserDAO {
 
 	final String JDBC_DRIVER = "org.h2.Driver";
-	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/test";
+	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/tukoreadb";
 //향후 mysql로 변경할 것 , JDPC_URL 각자 자신의 환경과 맞춰 구현하기.
 
 	

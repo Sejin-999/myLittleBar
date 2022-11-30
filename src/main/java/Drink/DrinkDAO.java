@@ -53,43 +53,43 @@ public class DrinkDAO {
 	}
 
 	// 찜 목록 리스트 가져오기
-	public Cart getCart(int user_id) throws Exception{
+	public List<Cart> getCart(int user_id) throws Exception{
 		Connection conn=DatabaseUtil.open();
-		Cart c=new Cart();
+		List<Cart> cartlist=new ArrayList<>();
 		String sql="select user_id, like_id, drink_id from Likes where user_id=?";
 		PreparedStatement pstmt=conn.prepareStatement(sql);
 		pstmt.setInt(1, user_id);
 		ResultSet rs=pstmt.executeQuery();
 		rs.next();
 		try(conn;pstmt;rs){
-		
-				c.setUser_id(rs.getInt("user_id"));
-				c.setLike_id(rs.getInt("like_id"));
-				c.setUser_id(rs.getInt("drink_id"));
-				pstmt.executeQuery();
-				return c;
+			while (rs.next()) {
+				Cart d = new Cart();
+				d.setLike_id(rs.getInt("like_id"));
+				d.setDrink_id(rs.getInt("drink_id"));
+				d.setUser_id(rs.getInt("user_id"));
+				cartlist.add(d);
 			}
+			return cartlist;
 
 		}
-
+	}
 	// 찜 목록에 해당하는 술 가져오기
-	public List<Drinks> getDrink(int drink_id) throws Exception {
+	public Drinks getDrink(int drink_id) throws Exception {
 		Connection conn = DatabaseUtil.open();
-		List<Drinks> likedrink = new ArrayList<>();
-		String sql = "select drink_id, image, name from Drinks where drink_id=?";
+		Drinks d = new Drinks();
+		String sql = "select drink_id, image, name from Drink where drink_id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, drink_id);
 		ResultSet rs = pstmt.executeQuery();
 		rs.next();
 		try (conn; pstmt; rs) {
-			while (rs.next()) {
-				Drinks d = new Drinks();
-				d.setDrink_id(rs.getInt("drink_id"));
-				d.setImage(rs.getString("image"));
-				d.setName(rs.getString("name"));
-				likedrink.add(d);
-			}
-			return likedrink;
+
+			d.setDrink_id(rs.getInt("drink_id"));
+			d.setImage(rs.getString("image"));
+			d.setName(rs.getString("name"));
+			pstmt.executeQuery();
+
+			return d;
 		}
 	}
 

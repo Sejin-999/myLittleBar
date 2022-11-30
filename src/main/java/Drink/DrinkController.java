@@ -89,23 +89,23 @@ public class DrinkController extends HttpServlet {
 	
 	
 	public String getCartAll(HttpServletRequest request) throws Exception {
-//		int user_id=Integer.parseInt(request.getParameter("user_id"));
+		int user_id=Integer.parseInt(request.getParameter("user_id"));
+		List<Cart> cartlist=null;
 		try{
-			Cart c=dao.getCart(1);
-			request.setAttribute("cart", c);
+			cartlist=dao.getCart(user_id);
 		}catch(SQLException e) {
 			e.printStackTrace();
-			ctx.log("찜목록을 가져오는 과정에서 문제 발생");
-			request.setAttribute("error", "찜목록을 정상적으로 가져오지 못했습니다");
 		}		
-		List<Drinks> likedrink = null;
+		request.setAttribute("cartlist", cartlist);
+		
 		try {
-			likedrink=dao.getDrinkAll(3);
+			Drinks d=dao.getDrink(3);
+			request.setAttribute("drink", d);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			ctx.log("베이스를 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
 		}
-		request.setAttribute("likedrink", likedrink);
 		return "cartlist.jsp";
 	}
 	
