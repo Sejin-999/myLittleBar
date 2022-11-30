@@ -20,7 +20,7 @@ public class DrinkController extends HttpServlet {
 	private DrinkDAO dao;
 	private ServletContext ctx;
 	
-	private final String START_PAGE="./main.jsp";
+	private final String START_PAGE="./searchList.jsp";
     
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -64,7 +64,7 @@ public class DrinkController extends HttpServlet {
 		}
 	}
 	
-	public String getSearchList(HttpServletRequest request) {
+	public String getSearchList(HttpServletRequest request) throws Exception {
 //		int base_id=Integer.parseInt(request.getParameter("base_id"));
 		List<Drinks> drinkList = null;
 		try {
@@ -74,24 +74,7 @@ public class DrinkController extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("drinklist", drinkList);
-		return "searchList.jsp";
-	}
-	
-	
-	public String getCartAll(HttpServletRequest request) {
-//		int user_id=Integer.parseInt(request.getParameter("user_id"));
-		List<Cart> cartlist=null;
-		try{
-			cartlist=dao.getCartAll(1);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		request.setAttribute("cartlist", cartlist);
-		return "cartlist.jsp";
-	}
-	
-	public String getBase(HttpServletRequest request) throws Exception {
-//		int base_id=Integer.parseInt(request.getParameter("base_id"));
+		
 		try {
 			Base b=dao.getBase(1);
 			request.setAttribute("base", b);
@@ -100,6 +83,30 @@ public class DrinkController extends HttpServlet {
 			ctx.log("베이스를 가져오는 과정에서 문제 발생");
 			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
 		}
+		
 		return "searchList.jsp";
 	}
+	
+	
+	public String getCartAll(HttpServletRequest request) throws Exception {
+//		int user_id=Integer.parseInt(request.getParameter("user_id"));
+		try{
+			Cart c=dao.getCart(1);
+			request.setAttribute("cart", c);
+		}catch(SQLException e) {
+			e.printStackTrace();
+			ctx.log("찜목록을 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "찜목록을 정상적으로 가져오지 못했습니다");
+		}		
+		List<Drinks> likedrink = null;
+		try {
+			likedrink=dao.getDrinkAll(3);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.setAttribute("likedrink", likedrink);
+		return "cartlist.jsp";
+	}
+	
 }
