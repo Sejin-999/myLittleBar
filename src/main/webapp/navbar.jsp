@@ -54,7 +54,7 @@ if(session.getAttribute("isAdmin") != null)
       <li class="nav-link pr-5">${userEmail}</li>
  
       <li class="nav-item">
-        <a class="nav-link" href="#">찜 목록</a>
+        <a class="nav-link" href="drinkController?action=getCartAll&user_id=1">찜 목록</a>
       </li>
       <li class="nav-item">
           <a class="nav-link" href="/MyLittleCocktail/userController?action=logout">로그아웃</a>
