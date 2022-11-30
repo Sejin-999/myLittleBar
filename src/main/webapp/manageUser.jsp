@@ -18,9 +18,51 @@
 <body style="background-color: #230312;">
 <%@ include file="../navbar.jsp" %>
 
-	<div class="container" style="color:white; margin-bottom:27rem;">
-유저 관리 페이
-	랄라라랄</div>
+<div class="container">
+
+<div class="row">
+	<div class="col-lg-12">
+			<div class="table-responsive">
+				<table class="table table-striped table-dark">
+					<thead class="">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Email</th>
+							<th scope="col"><span>Name</span></th>
+							<th scope="col"><span>Role</span></th>
+							<th scope="col"><span>Created</span></th>
+							<th scope="col"><span>Setting</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class = "align-center">
+							<td class="align-middle">1</th>
+							<td class="align-middle">
+								asdad@naver.com 
+							</td>
+							<td class="align-middle">
+								teaown
+							</td>
+							<td class="align-middle">
+								User
+							</td>
+							<td class="align-middle">
+								
+							2020.10.10
+							
+							</td>
+							<td class="align-middle">
+
+							<a href="#link" class="btn btn-info" role="button">X</a>							
+							
+							</td>
+						</tr>
+						</tbody>
+						</table>
+						
+					
+	</div>
+	</div>
 
 </body>
 
