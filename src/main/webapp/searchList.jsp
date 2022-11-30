@@ -20,11 +20,12 @@
 	<div class="container" style="color: white;">
 		<table style="width: 100%">
 			<tbody>
-				<tr>
-					<td style="width: 35%; text-align: center; padding-right: 5%;">
-						<h1 style="margin-top: 2%; margin-bottom: 5%;">${drink.base_name}</h1>
-					</td>
 
+				<tr>
+
+					<td style="width: 35%; text-align: center; padding-right: 5%;">
+						<h1 style="margin-top: 2%; margin-bottom: 5%;">${base.name}</h1>
+					</td>
 
 					<td style="width: 50%; vertical-align: top; text-align: center;">
 						<h1 style="margin-top: 2%; margin-bottom: 5%;">Drinks</h1>
@@ -32,7 +33,7 @@
 				</tr>
 				<tr>
 					<td style="width: 35%; vertical-align: top; padding-right: 5%;">
-						<img src="${drink.base_image}" style="width: 100%">
+						<img src="${base.image}" style="width: 100%">
 					</td>
 
 
@@ -58,25 +59,24 @@
 											</a>
 											</td>
 											<c:if test="${i%j == j-1}">
+												</tr>
+											</c:if>
+											<c:set var="i" value="${i+1}" />
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<div
+											class="alert alert-danger alert-dismissible fade show mt-3">
+											에러 발생: ${error}</div>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+						</table>
+					</td>
 				</tr>
-				</c:if>
-				<c:set var="i" value="${i+1}" />
-				</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<div class="alert alert-danger alert-dismissible fade show mt-3">
-						에러 발생: ${error}</div>
-				</c:otherwise>
-				</c:choose>
+
 			</tbody>
 		</table>
-		</td>
-
-
-		</tr>
-		</tbody>
-		</table>
-
 	</div>
 	<%@ include file="../footer.jsp"%>
 </body>

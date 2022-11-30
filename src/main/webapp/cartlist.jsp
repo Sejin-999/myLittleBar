@@ -33,8 +33,8 @@
 								<c:set var="i" value="0" />
 								<c:set var="j" value="4" />
 								<c:choose>
-									<c:when test="${cartlist != null && fn:length(cartlist)>0}">
-										<c:forEach var="cart" items="${cartlist}"
+									<c:when test="${likedrink != null && fn:length(likedrink)>0}">
+										<c:forEach var="like" items="${likedrink}"
 											varStatus="status">
 											<c:if test="{i%j==0}">
 												<tr style="padding-right: 5%; padding-left: 5%;">
@@ -43,8 +43,8 @@
 												style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
 												<a href="#">
 													<figure>
-														<img src="" style="width: 100%">
-														<figcaption>${cart.cart_id}</figcaption>
+														<img src="${like.image}" style="width: 100%">
+														<figcaption>${like.name}</figcaption>
 													</figure>
 											</a>
 											</td>
