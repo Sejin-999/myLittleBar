@@ -116,7 +116,7 @@ public class UserDAO {
 
 	public void deleteUser(int userId) throws SQLException { //회원 탈퇴기능[관리자 기능]
 		Connection conn = DatabaseUtil.open();
-		String sql = "delete from users where id=?";
+		String sql = "delete from users where user_id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 			pstmt.setInt(1, userId);

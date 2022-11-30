@@ -159,6 +159,19 @@ public class UserController extends HttpServlet {
 	
 		return "./manageUser.jsp"; // 
 	}
+	
+	public String deleteUser(HttpServletRequest request) {
+	int user_id = Integer.parseInt(request.getParameter("user_id"));
+	try {
+		dao.deleteUser(user_id);
+	} catch (SQLException e) {
+		e.printStackTrace();
+		ctx.log("유저 삭제 중 오류 발생");
+		request.setAttribute("error", "유저 삭제 중 오류가 발생하였습니다.");
+		return "/userController?action=manageUser";
+	}
+	return "redirect:/userController?action=manageUser";
+}
 
 	
 	
@@ -190,6 +203,7 @@ public class UserController extends HttpServlet {
 	public String defaultView(HttpServletRequest request) {
 		return "./signIn.jsp";
 	}
+
 //
 //	public String getNews(HttpServletRequest request) {
 //		int aid = Integer.parseInt(request.getParameter("aid"));

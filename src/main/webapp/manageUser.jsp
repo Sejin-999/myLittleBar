@@ -20,7 +20,9 @@
 	<%@ include file="../navbar.jsp"%>
 
 	<div class="container">
-
+		<c:if test="${error != null}">
+			<div class="alert alert-danger text-center mt-2" role="alert">${error}</div>
+		</c:if>
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="table-responsive">
@@ -54,7 +56,7 @@
 									
 									
 									<c:if test="${!user.is_admin}">
-										<td class="align-middle"><a href="#link"
+										<td class="align-middle"><a href="/MyLittleCocktail/userController?action=deleteUser&user_id=${user.user_id}"
 										class="btn btn-info" role="button">X</a></td>
 									</c:if> 
 									
