@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<br />
-<br />
-
-
+<br>
   <div class="text-center p-4" style="margin-bottom: 0;background-color: #343a40;color:white">
   <i class="bi bi-github"></i>
   <i class="bi bi-github"></i>

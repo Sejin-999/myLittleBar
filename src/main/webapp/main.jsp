@@ -14,18 +14,42 @@
 <script src="./resources/js/jquery-3.5.1.min.js"></script>
 <script src="./resources/js/bootstrap.bundle.min.js"></script>
 <title>SearchList</title>
+<style>
+html, body {
+	height: 100%
+}
+
+#wrapper {
+	min-height: 90%;
+	position: relative;
+}
+
+.footer {
+	position: relative; 
+	transform: translatY(-100%);
+}
+</style>
 </head>
+
 <body style="background-color: #230312;">
-	<%@ include file="../navbar.jsp"%>
-		<div class="container" style="color: white;">
+
+	<div id='wrapper'>
+		<%@ include file="../navbar.jsp"%>
+		<div class='container'>
 			<a href="drinkController?action=getSearchList&base_id=1">리스트 이동</a>
 		</div>
-	<%@ include file="../footer.jsp"%>
+	</div>
+	<footer style='footer'>
+		<%@ include file="../footer.jsp"%>
+	</footer>
+
 </body>
 
-<footer class="fixed-bottom">
+
+
+<%-- <footer class="relative-bottom">
 <%@ include file="../footer.jsp" %>
 </footer>
-
+ --%>
 
 </html>
