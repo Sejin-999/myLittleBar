@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +16,10 @@
 <title>SearchList</title>
 </head>
 <body style="background-color: #230312;">
-	<%@ include file="../navbar.jsp"%>
+<%@ include file="../navbar.jsp"%>
+<%@ include file="../checkValid.jsp"%>
+
+
 
 	<div class="container">
 		<c:if test="${error != null}">
