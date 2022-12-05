@@ -13,22 +13,9 @@
 	crossorigin="anonymous"></script> -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+<link rel="stylesheet" href="common.css">
 <title>likeList</title>
-<style>
-html, body {
-	height: 100%
-}
 
-#wrapper {
-	min-height: 90%;
-	position: relative;
-}
-
-.footer {
-	position: relative;
-	transform: translatY(-100%);
-}
-</style>
 </head>
 <body style="background-color: #230312;">
 	<div id='wrapper'>
@@ -85,9 +72,9 @@ html, body {
 
 		</div>
 	</div>
-	<footer style='footer'>
-	<%@ include file="../footer.jsp"%>
-</footer>
+	<footer style=''>
+		<%@ include file="../footer.jsp"%>
+	</footer>
 </body>
 
 </html>
