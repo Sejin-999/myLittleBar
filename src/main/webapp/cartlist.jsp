@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -14,60 +14,80 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <title>likeList</title>
+<style>
+html, body {
+	height: 100%
+}
+
+#wrapper {
+	min-height: 90%;
+	position: relative;
+}
+
+.footer {
+	position: relative;
+	transform: translatY(-100%);
+}
+</style>
 </head>
 <body style="background-color: #230312;">
-	<%@ include file="../navbar.jsp"%>
-	<div class="container" style="color: white;">
-		<table style="width: 100%">
-			<tbody>
-				<tr>
-					<td style="width: 50%; vertical-align: top; text-align: center;">
-						<h1 style="margin-top: 2%; margin-bottom: 5%;">Likes</h1>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<table style="width: 100%; text-align: center;">
-							<tbody>
-								<c:set var="i" value="0" />
-								<c:set var="j" value="4" />
-								<c:choose>
-									<c:when test="${cartlist != null && fn:length(cartlist)>0}">
-										<c:forEach var="cart" items="${cartlist}"
-											varStatus="status">
-											<c:if test="{i%j==0}">
-												<tr style="padding-right: 5%; padding-left: 5%;">
-											</c:if>
-											<td
-												style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
-												<a href="#">
-													<figure>
-														<img src="${drink.image}" style="width: 100%">
-														<figcaption>${drink.name}</figcaption>
-													</figure>
-											</a>
-											</td>
-											<c:if test="${i%j == j-1}">
-				</tr>
-				</c:if>
-				<c:set var="i" value="${i+1}" />
-				</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<div class="alert alert-danger alert-dismissible fade show mt-3">
-						에러 발생: ${error}</div>
-				</c:otherwise>
-				</c:choose>
-			</tbody>
-		</table>
-		</td>
+	<div id='wrapper'>
+		<%@ include file="../navbar.jsp"%>
+		<div class="container" style="color: white;">
+			<table style="width: 100%">
+				<tbody>
+					<tr>
+						<td style="width: 50%; vertical-align: top; text-align: center;">
+							<h1 style="margin-top: 2%; margin-bottom: 5%;">Likes</h1>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table style="width: 100%; text-align: center;">
+								<tbody>
+									<c:set var="i" value="0" />
+									<c:set var="j" value="4" />
+									<c:choose>
+										<c:when test="${cartlist != null && fn:length(cartlist)>0}">
+											<c:forEach var="cart" items="${cartlist}" varStatus="status">
+												<c:if test="{i%j==0}">
+													<tr style="padding-right: 5%; padding-left: 5%;">
+												</c:if>
+												<td
+													style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
+													<a href="#">
+														<figure>
+															<img src="${drink.image}" style="width: 100%">
+															<figcaption>${drink.name}</figcaption>
+														</figure>
+												</a>
+												</td>
+												<c:if test="${i%j == j-1}">
+													</tr>
+												</c:if>
+												<c:set var="i" value="${i+1}" />
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<div
+												class="alert alert-danger alert-dismissible fade show mt-3">
+												에러 발생: ${error}</div>
+										</c:otherwise>
+									</c:choose>
+								</tbody>
+							</table>
+						</td>
 
 
-		</tr>
-		</tbody>
-		</table>
+					</tr>
+				</tbody>
+			</table>
 
+		</div>
 	</div>
+	<footer style='footer'>
 	<%@ include file="../footer.jsp"%>
+</footer>
 </body>
+
 </html>
