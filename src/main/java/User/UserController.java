@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+
 /**
  * Servlet implementation class NewsController
  */
@@ -143,9 +144,36 @@ public class UserController extends HttpServlet {
 		HttpSession session = request.getSession();
 	    session.invalidate();
      return "./main.jsp";
-			
-		
 	}
+	
+	
+	public String manageUser(HttpServletRequest request) { //유저 관리자 페이지
+		List<Users> list;
+		try {
+			list = dao.getUserAll();
+			request.setAttribute("userList", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("유저 관리자 페이지 오류발생");
+		}
+	
+		return "./manageUser.jsp"; // 
+	}
+	
+	public String deleteUser(HttpServletRequest request) {
+	int user_id = Integer.parseInt(request.getParameter("user_id"));
+	try {
+		dao.deleteUser(user_id);
+	} catch (SQLException e) {
+		e.printStackTrace();
+		ctx.log("유저 삭제 중 오류 발생");
+		request.setAttribute("error", "유저 삭제 중 오류가 발생하였습니다.");
+		return "/userController?action=manageUser";
+	}
+	return "redirect:/userController?action=manageUser";
+}
+
+	
 	
 //	public String updateNews(HttpServletRequest request) {
 //		
@@ -175,6 +203,7 @@ public class UserController extends HttpServlet {
 	public String defaultView(HttpServletRequest request) {
 		return "./signIn.jsp";
 	}
+
 //
 //	public String getNews(HttpServletRequest request) {
 //		int aid = Integer.parseInt(request.getParameter("aid"));

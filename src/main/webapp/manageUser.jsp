@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,16 +16,73 @@
 <title>SearchList</title>
 </head>
 <body style="background-color: #230312;">
-<%@ include file="../navbar.jsp" %>
+<%@ include file="../navbar.jsp"%>
+<%@ include file="../checkValid.jsp"%>
 
-	<div class="container" style="color:white; margin-bottom:27rem;">
-유저 관리 페이
-	랄라라랄</div>
 
+
+	<div class="container">
+		<c:if test="${error != null}">
+			<div class="alert alert-danger text-center mt-2" role="alert">${error}</div>
+		</c:if>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="table-responsive">
+					<table class="table table-striped table-dark">
+						<thead class="">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Email</th>
+								<th scope="col"><span>Name</span></th>
+								<th scope="col"><span>Role</span></th>
+								<th scope="col"><span>Setting</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="user" items="${userList}" varStatus="status">
+								<tr class="align-center">
+									<td class="align-middle">${user.user_id}
+									</th>
+									<td class="align-middle">${user.email}</td>
+									<td class="align-middle">
+									${user.name}
+							</td>
+									<td class="align-middle">
+									<c:if test="${user.is_admin}">
+										ADMIN
+									</c:if> 
+									<c:if test="${!user.is_admin}">
+										USER
+									</c:if>
+									</td>
+									
+									
+									<c:if test="${!user.is_admin}">
+										<td class="align-middle"><a href="/MyLittleCocktail/userController?action=deleteUser&user_id=${user.user_id}"
+										class="btn btn-info" role="button">X</a></td>
+									</c:if> 
+									
+									<c:if test="${user.is_admin}">
+										<td class="align-middle"></td>
+									</c:if> 
+									
+									
+								</tr>
+
+							</c:forEach>
+
+
+
+						</tbody>
+					</table>
+
+
+				</div>
+			</div>
 </body>
 
 <footer class="fixed-bottom">
-<%@ include file="../footer.jsp" %>
+	<%@ include file="../footer.jsp"%>
 </footer>
 
 
