@@ -19,6 +19,8 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import Drink.Base;
+import Drink.DrinkDAO;
 import Util.Constants;
 
 /**
@@ -29,6 +31,7 @@ import Util.Constants;
 public class AdminRecipeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AdminRecipeDAO adminRecipDAO;
+	private DrinkDAO drinkDAO;
 	// 일단 하나의 DAO쓰다가 나중에 각각 엔티티에 대해 구현된 DAO에 내용합치고 분리하기
 	private ServletContext ctx;
 // 웹 리소스 기본 경로 지정
@@ -37,6 +40,7 @@ public class AdminRecipeController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		adminRecipDAO = new AdminRecipeDAO();
+		drinkDAO = new DrinkDAO();
 		// baseDAO , DrinksDAO, baseDAO 각각 DAO를 가져올 것
 		ctx = getServletContext();
 	}
@@ -152,6 +156,26 @@ public class AdminRecipeController extends HttpServlet {
 	}
 
 	public String defaultView(HttpServletRequest request) {
+		
+		List<Base> baseList = null;
+		List<Ingredient> ingredientList = null;
+		try {
+			baseList=drinkDAO.getBaseAll();
+			request.setAttribute("baseList", baseList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("error", "베이스 리스트를 가져오던 중 오류가 발생하였습니다.");
+		}
+		
+//		try {
+//			baseList=drinkDAO.getBaseAll();
+//			request.setAttribute("baseList", baseList);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			request.setAttribute("error", request.getAttribute("error") + "\n 재료 리스트를 가져오던 중 오류가 발생하였습니다.");
+//		}
+		
+		
 		return "./manageRecipe.jsp";
 	}
 
@@ -159,9 +183,7 @@ public class AdminRecipeController extends HttpServlet {
 		String fileName = null;
 		// 파일이름이 들어있는 헤더 영역을 가지고 옴
 		String header = part.getHeader("content-disposition"); // content-disposition //: response의 컨텐츠 정보 //
-		// part.getHeader -> form-data; name="img"; filename="사진5.jpg"
 		System.out.println("Header => " + header);
-		// 파일 이름이 들어있는 속성 부분의 시작위치를 가져와 쌍따옴표 사이의 값 부분만 가지고옴
 		int start = header.indexOf("filename=");
 		fileName = header.substring(start + 10, header.length() - 1);
 		ctx.log("파일명:" + fileName);

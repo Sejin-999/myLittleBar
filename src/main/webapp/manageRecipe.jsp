@@ -169,14 +169,18 @@
 							<label class="form-label fs-5">칵테일명</label> <input type="text"
 								name="title" class="form-control"> <label
 								class="form-label fs-5">이미지</label> <input type="file" name="file"
-								class="form-control"> <br> <label class="fs-5">베이스 선택</label> <select
+								class="form-control"> <br> <label class="fs-5">베이스 선택</label> 
+								<select
 								name="rec_type" class="form-control">
+								
 								<option value="--">--</option>
-								<option value="1">콜라</option>
-								<option value="2">레몬</option>
-								<option value="3">재료2</option>
-								<option value="4">재료3</option>
-
+								
+									<c:if test="${baseList != null}">
+									<c:forEach var="base" items="${baseList}" varStatus="status">
+										<option value="${base.base_id}">${base.name}</option>
+									</c:forEach>
+									</c:if>
+								
 							</select> <br>
 							
 							<label class="fs-5">재료 선택</label>
@@ -213,6 +217,9 @@
 			</div>
 		</div>
 
+ 		<c:if test="${error != null}">
+			<div class="alert alert-danger text-center mt-2" role="alert">${error}</div>
+		</c:if>
 	</div>
 
 	<script>
