@@ -131,10 +131,10 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form method="post" action="#"
+						<form method="post" action="/MyLittleCocktail/adminRecipeController?action=uploadBase"
 							enctype="multipart/form-data">
 							<label class="form-label fs-5">베이스명</label> <input type="text"
-								name="title" class="form-control"> <label
+								name="name" class="form-control"> <label
 								class="form-label fs-5">이미지</label> <input type="file" name="file"
 								class="form-control">
 							<button type="submit" class="btn btn-success mt-3">등록하기</button>
