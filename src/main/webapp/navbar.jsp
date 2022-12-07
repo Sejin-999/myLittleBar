@@ -25,7 +25,7 @@ if(session.getAttribute("isAdmin") != null)
 }
 %>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark" style="color:black">
-  <a class="navbar-brand" href="main.jsp">My Little Bar</a>
+  <a class="navbar-brand" href="drinkController">My Little Bar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -54,7 +54,7 @@ if(session.getAttribute("isAdmin") != null)
       <li class="nav-link pr-5">${userEmail}</li>
  
       <li class="nav-item">
-        <a class="nav-link" href="#">찜 목록</a>
+        <a class="nav-link" href="drinkController?action=getCartAll&user_id=1">찜 목록</a>
       </li>
       <li class="nav-item">
           <a class="nav-link" href="/MyLittleCocktail/userController?action=logout">로그아웃</a>
