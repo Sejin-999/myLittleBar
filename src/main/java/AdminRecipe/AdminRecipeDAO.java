@@ -32,11 +32,27 @@ public class AdminRecipeDAO {
 
 	public int insertBase(Base base) throws Exception { //base데이터 추가
 		Connection conn = DatabaseUtil.open();
-		String sql = "insert into Base(name,image) values(?,?)";
+		String sql = "insert into BASE(name,image) values(?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 			pstmt.setString(1, base.getName());
 			pstmt.setString(2, base.getImage());
+		
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+	}
+		return -1; //데이터 베이스 오류
+		
+	}
+	
+	public int insertIngredient(Ingredient ingredient) throws Exception { //재료 데이터 추가
+		Connection conn = DatabaseUtil.open();
+		String sql = "insert into INGREDIENT(name,image) values(?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (conn; pstmt) {
+			pstmt.setString(1, ingredient.getName());
+			pstmt.setString(2, ingredient.getImage());
 		
 			return pstmt.executeUpdate();
 		} catch (Exception e) {

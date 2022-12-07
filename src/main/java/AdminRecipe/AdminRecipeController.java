@@ -19,8 +19,6 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-
-
 /**
  * Servlet implementation class AdminRecipeController
  */
@@ -29,7 +27,7 @@ import org.apache.commons.beanutils.BeanUtils;
 public class AdminRecipeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AdminRecipeDAO adminRecipDAO;
-	//일단 하나의 DAO쓰다가 나중에 각각 엔티티에 대해 구현된 DAO에 내용합치고 분리하기 
+	// 일단 하나의 DAO쓰다가 나중에 각각 엔티티에 대해 구현된 DAO에 내용합치고 분리하기
 	private ServletContext ctx;
 // 웹 리소스 기본 경로 지정
 	private final String START_PAGE = "./main.jsp";
@@ -45,20 +43,20 @@ public class AdminRecipeController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");// 한글 처리
 		String action = request.getParameter("action");
-		//adminRecipDAO = new AdminRecipeDAO();
+		// adminRecipDAO = new AdminRecipeDAO();
 
 		Method m; // java.lang을 import
 		String view = null;
 		// action 파라미터 없이 접근한 경우
 		if (action == null) {
-			action = "defaultView"; 
+			action = "defaultView";
 		}
 		try {
-			
+
 			m = this.getClass().getMethod(action, HttpServletRequest.class);
 			// 메서드 실행후 리턴값 받아옴
 			view = (String) m.invoke(this, request);
-		} catch (NoSuchMethodException e) { 
+		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 			ctx.log("요청 action 없음!!");
 			request.setAttribute("error", "action 파라미터가 잘못 되었습니다");
@@ -68,11 +66,11 @@ public class AdminRecipeController extends HttpServlet {
 		}
 
 		if (view.startsWith("redirect:/")) {
-		
-			String rview = view.substring("redirect:/".length()); 
+
+			String rview = view.substring("redirect:/".length());
 			response.sendRedirect(rview);
 		} else {
-	
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response); //
 		}
@@ -80,7 +78,7 @@ public class AdminRecipeController extends HttpServlet {
 
 	public String uploadBase(HttpServletRequest request) {
 		Base base = new Base();
-		
+
 		try {
 			// 이미지 파일 저장
 			Part part = request.getPart("file");
@@ -89,22 +87,22 @@ public class AdminRecipeController extends HttpServlet {
 				part.write(fileName);
 			}
 			BeanUtils.populate(base, request.getParameterMap());
-	
+
 			base.setImage("image/base/" + fileName);
 			adminRecipDAO.insertBase(base);
-	
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			ctx.log("베이스 등록 과정에서 문제 발생!!");
-
+			request.setAttribute("error", "베이스 등록 과정에서 문제가 발생하였습니다.");
 			return "redirect:/adminRecipeController?action=defaultView";
 		}
 		return "redirect:/adminRecipeController?action=defaultView";
 	}
 
 	public String uploadIngredient(HttpServletRequest request) {
-		// Base base = new base()
+		Ingredient ingredient = new Ingredient();
+
 		try {
 			// 이미지 파일 저장
 			Part part = request.getPart("file");
@@ -112,19 +110,20 @@ public class AdminRecipeController extends HttpServlet {
 			if (fileName != null && !fileName.isEmpty()) {
 				part.write(fileName);
 			}
+			BeanUtils.populate(ingredient, request.getParameterMap());
 
-			// BeanUtils.populate(n, request.getParameterMap());
-			// n.setImg("/img/" + fileName);
-			// baseDAO.addBase(base);
+			ingredient.setImage("image/base/" + fileName);
+			adminRecipDAO.insertIngredient(ingredient);
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			ctx.log("재료 등록 과정에서 오류가 발생하였습니다.");
+			ctx.log("재료 등록 과정에서 문제 발생!!");
+			request.setAttribute("error", "재료 등록 과정에서 문제가 발생하였습니다.");
 			return "redirect:/adminRecipeController?action=defaultView";
 		}
 		return "redirect:/adminRecipeController?action=defaultView";
 	}
-	
-	
+
 	public String uploadRecipe(HttpServletRequest request) {
 		// Base base = new base()
 		try {
@@ -141,7 +140,7 @@ public class AdminRecipeController extends HttpServlet {
 			// 1.Drinks에 업로드하기
 			// 2.방금 생긴 데이터의 id값 가져오기
 			// 3. DrinksDetail테이블에 Drink id , 위의 재료를 for문으로 가져와서? 재료 Id값 넣기
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			ctx.log("레시피 등록 과정에서 오류가 발생하였습니다.");
@@ -150,12 +149,9 @@ public class AdminRecipeController extends HttpServlet {
 		return "redirect:/adminRecipeController?action=defaultView";
 	}
 
-
-
 	public String defaultView(HttpServletRequest request) {
 		return "./manageRecipe.jsp";
 	}
-
 
 	private String getFilename(Part part) {
 		String fileName = null;
