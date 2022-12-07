@@ -19,6 +19,8 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import Util.Constants;
+
 /**
  * Servlet implementation class AdminRecipeController
  */
@@ -84,7 +86,7 @@ public class AdminRecipeController extends HttpServlet {
 			Part part = request.getPart("file");
 			String fileName = getFilename(part);
 			if (fileName != null && !fileName.isEmpty()) {
-				part.write(fileName);
+				part.write(Constants.path +"/base/"+fileName);
 			}
 			BeanUtils.populate(base, request.getParameterMap());
 
@@ -102,17 +104,17 @@ public class AdminRecipeController extends HttpServlet {
 
 	public String uploadIngredient(HttpServletRequest request) {
 		Ingredient ingredient = new Ingredient();
-
+		
 		try {
 			// 이미지 파일 저장
 			Part part = request.getPart("file");
 			String fileName = getFilename(part);
 			if (fileName != null && !fileName.isEmpty()) {
-				part.write(fileName);
+				part.write(Constants.path +"/ingredient/"+fileName);
 			}
 			BeanUtils.populate(ingredient, request.getParameterMap());
 
-			ingredient.setImage("image/base/" + fileName);
+			ingredient.setImage("image/ingredient/" + fileName);
 			adminRecipDAO.insertIngredient(ingredient);
 
 		} catch (Exception e) {
