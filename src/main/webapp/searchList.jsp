@@ -23,9 +23,7 @@
 		<div class="container" style="color: white;">
 			<table style="width: 100%">
 				<tbody>
-
 					<tr>
-
 						<td style="width: 35%; text-align: center; padding-right: 5%;">
 							<h1 style="margin-top: 2%; margin-bottom: 5%;">${base.name}</h1>
 						</td>
@@ -57,7 +55,7 @@
 													<a href="#">
 														<figure>
 															<img src="${drinks.image}" style="width: 100%">
-															<figcaption>${drinks.name}</figcaption>
+															<figcaption style="text-align:center; color: #FFFFFF; text-decoration: none; font-size: 2rem;">${drinks.name}</figcaption>
 														</figure>
 												</a>
 												</td>

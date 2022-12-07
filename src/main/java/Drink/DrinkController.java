@@ -20,7 +20,7 @@ public class DrinkController extends HttpServlet {
 	private DrinkDAO dao;
 	private ServletContext ctx;
 	
-	private final String START_PAGE="./searchList.jsp";
+	private final String START_PAGE="./main.jsp";
     
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -39,7 +39,7 @@ public class DrinkController extends HttpServlet {
 		String view=null;
 		
 		if (action==null) {
-			action="getSearchList";
+			action="listBase";
 		}
 		
 		try {
@@ -64,11 +64,25 @@ public class DrinkController extends HttpServlet {
 		}
 	}
 	
+	public String listBase(HttpServletRequest request) throws Exception {
+		List<Base> list = null;
+		try {
+			list=dao.getBaseAll();
+			request.setAttribute("baseList", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("베이스 목록 과정에서 문제 발생!!");
+			request.setAttribute("error", "베이스 목록이 정상적으로 처리되지 않았습니다!!");
+		}
+		
+		return "main.jsp";
+	}
+	
 	public String getSearchList(HttpServletRequest request) throws Exception {
-//		int base_id=Integer.parseInt(request.getParameter("base_id"));
+		int base_id=Integer.parseInt(request.getParameter("base_id"));
 		List<Drinks> drinkList = null;
 		try {
-			drinkList=dao.getDrinkAll(1);
+			drinkList=dao.getDrinkAll(base_id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,7 +90,7 @@ public class DrinkController extends HttpServlet {
 		request.setAttribute("drinklist", drinkList);
 		
 		try {
-			Base b=dao.getBase(1);
+			Base b=dao.getBase(base_id);
 			request.setAttribute("base", b);
 		}catch(SQLException e) {
 			e.printStackTrace();

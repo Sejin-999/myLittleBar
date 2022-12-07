@@ -14,6 +14,26 @@ public class DrinkDAO {
 	final String JDBC_DRIVER = "org.h2.Driver";
 	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/tukoreadb";
 
+	//베이스 목록 전체 가져오기
+	public List<Base> getBaseAll() throws Exception{
+		Connection conn = DatabaseUtil.open();
+		List<Base> baseList=new ArrayList<>();
+		String sql="select base_id, name, image from Base";
+		PreparedStatement pstmt=conn.prepareStatement(sql);
+		ResultSet rs=pstmt.executeQuery();
+		try(conn;pstmt;rs){
+			while(rs.next()) {
+				Base b= new Base();
+				b.setBase_id(rs.getInt("base_id"));
+				b.setName(rs.getString("name"));
+				b.setImage(rs.getString("image"));
+				baseList.add(b);
+			}
+			return baseList;
+		}
+	}
+	
+	
 	// 해당 베이스에 대한 술 리스트 가져오기
 	public List<Drinks> getDrinkAll(int base_id) throws Exception {
 		Connection conn = DatabaseUtil.open();
@@ -33,6 +53,7 @@ public class DrinkDAO {
 			return drinkList;
 		}
 	}
+	
 
 	public Base getBase(int base_id) throws Exception {
 		Connection conn = DatabaseUtil.open();
