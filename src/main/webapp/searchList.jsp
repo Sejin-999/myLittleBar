@@ -15,7 +15,9 @@
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link rel="stylesheet" href="common.css">
 <title>SearchList</title>
-
+<style>
+.a:hover { text-decoration: none; }
+</style>
 </head>
 <body style="background-color: #230312;">
 	<div id='wrapper'>
@@ -52,7 +54,7 @@
 												</c:if>
 												<td
 													style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
-													<a href="#">
+													<a class="a" href="#">
 														<figure>
 															<img src="${drinks.image}" style="width: 100%">
 															<figcaption style="text-align:center; color: #FFFFFF; text-decoration: none; font-size: 2rem;">${drinks.name}</figcaption>
