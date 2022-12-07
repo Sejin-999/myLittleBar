@@ -167,14 +167,16 @@ public class AdminRecipeController extends HttpServlet {
 			request.setAttribute("error", "베이스 리스트를 가져오던 중 오류가 발생하였습니다.");
 		}
 		
-//		try {
-//			baseList=drinkDAO.getBaseAll();
-//			request.setAttribute("baseList", baseList);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			request.setAttribute("error", request.getAttribute("error") + "\n 재료 리스트를 가져오던 중 오류가 발생하였습니다.");
-//		}
 		
+		
+		try {
+			ingredientList=adminRecipDAO.getIngredientAll();
+			request.setAttribute("ingredientList", ingredientList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("error", request.getAttribute("error") + "<br> 재료 리스트를 가져오던 중 오류가 발생하였습니다.");
+		}
+
 		
 		return "./manageRecipe.jsp";
 	}

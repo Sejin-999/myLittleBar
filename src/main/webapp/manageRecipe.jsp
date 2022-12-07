@@ -193,10 +193,11 @@
 									<tr>
 										<td><select name="base_type" class="form-control">
 												<option value="--">--</option>
-												<option value="1">콜라</option>
-												<option value="2">레몬</option>
-												<option value="3">재료2</option>
-												<option value="4">재료3</option>
+													<c:if test="${baseList != null}">
+													<c:forEach var="ingredient" items="${ingredientList}" varStatus="status">
+														<option value="${ingredient.ingredient_id}">${ingredient.name}</option>
+													</c:forEach>
+													</c:if>
 
 										</select></td>
 
@@ -217,9 +218,7 @@
 			</div>
 		</div>
 
- 		<c:if test="${error != null}">
-			<div class="alert alert-danger text-center mt-2" role="alert">${error}</div>
-		</c:if>
+ 
 	</div>
 
 	<script>
@@ -231,8 +230,8 @@
 			rowIndex = oCurrentRow.rowIndex;
 			oCurrentCell = oCurrentRow.insertCell();
 			rowIndex++;
-			oCurrentCell.innerHTML = "<select name='ingredient" + rowIndex + "' class='form-control'> <option value='--'>--</option> <option value='수필'>콜라</option> <option value='소설'>ㅇ</option>		</select>"
-			form.rowCount.value = rowIndex;
+			oCurrentCell.innerHTML = "<select name='ingredient" + rowIndex + "' class='form-control'> <option value='--'>--</option><c:if test='${baseList != null}'><c:forEach var='ingredient' items='${ingredientList}' varStatus='status'>	<option value='${ingredient.ingredient_id}'>${ingredient.name}</option></c:forEach>	</c:if></select>"
+				
 
 		}
 	</script>

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Drink.Base;
+import Drink.Drinks;
 import Util.DatabaseUtil;
 
 /*
@@ -62,6 +63,25 @@ public class AdminRecipeDAO {
 		return -1; //데이터 베이스 오류
 		
 	}
+	
+	public List<Ingredient> getIngredientAll() throws Exception{
+		Connection conn = DatabaseUtil.open();
+		List<Ingredient> ingredientList = new ArrayList<>();
+		String sql="select ingredient_id, name, image from Ingredient";
+		PreparedStatement pstmt=conn.prepareStatement(sql);
+		ResultSet rs=pstmt.executeQuery();
+		try(conn;pstmt;rs){
+			while(rs.next()) {
+				Ingredient data= new Ingredient();
+				data.setIngredient_id(rs.getInt("ingredient_id"));
+				data.setName(rs.getString("name"));
+				data.setImage(rs.getString("image"));
+				ingredientList.add(data);
+			}
+			return ingredientList;
+		}
+	}
+	
 //	
 //	public boolean checkDuplicate(String email) throws Exception  {
 //		Connection conn = DatabaseUtil.open();
