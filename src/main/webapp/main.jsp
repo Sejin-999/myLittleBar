@@ -32,8 +32,9 @@
 </head>
 
 <body style="background-color: #230312;">
-	<div id='wrapper'>
+
 		<%@ include file="../navbar.jsp"%>
+		<article>
 		<div class='container'>
 			<br>
 			<h1 style="text-align: center; color: #FFE071; font-size: 4rem;">My
@@ -75,12 +76,13 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
-	<br>
-	<br>
-	<footer>
+		</article>
+				<footer>
 		<%@ include file="../footer.jsp"%>
 	</footer>
+
+
+
 </body>
 
 

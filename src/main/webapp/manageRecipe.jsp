@@ -16,14 +16,12 @@
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
+<link rel="stylesheet" href="common.css">
 <script src="./resources/js/jquery-3.5.1.min.js"></script>
 <script src="./resources/js/bootstrap.bundle.min.js"></script>
 <title>SearchList</title>
-</head>
-<body style="background-color: #230312;">
 
-	<style>
+<style>
 .imgSize {
 	top: 0;
 	left: 0;
@@ -42,13 +40,20 @@
 	height: 70vh;
 }
 </style>
+</head>
 
-	<%@ include file="../navbar.jsp"%>
+
+
+
+
+
+
+<body style="background-color: #230312;">
 	<%@ include file="../checkValid.jsp"%>
+		<%@ include file="../navbar.jsp"%>
+	<article>
+		<div class="container" style="color: white;">
 
-
-
-	<div class="container main-wrapper">
 		<c:if test="${error != null}">
 			<div class="alert alert-danger text-center mt-2" role="alert">${error}</div>
 		</c:if>
@@ -235,11 +240,14 @@
 
 		}
 	</script>
-</body>
 
-<footer class="">
+	</article>
+	<footer class="">
 	<%@ include file="../footer.jsp"%>
 </footer>
+</body>
+
+
 
 
 </html>
