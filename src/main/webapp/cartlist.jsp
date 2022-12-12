@@ -18,8 +18,8 @@
 
 </head>
 <body style="background-color: #230312;">
-	<div id='wrapper'>
-		<%@ include file="../navbar.jsp"%>
+	<%@ include file="../navbar.jsp"%>
+	<section style="min-height: 77%">
 		<div class="container" style="color: white;">
 			<table style="width: 100%">
 				<tbody>
@@ -69,10 +69,9 @@
 					</tr>
 				</tbody>
 			</table>
-
 		</div>
-	</div>
-	<footer style=''>
+	</section>
+	<footer>
 		<%@ include file="../footer.jsp"%>
 	</footer>
 </body>
