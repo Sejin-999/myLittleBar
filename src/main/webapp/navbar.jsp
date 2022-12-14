@@ -38,6 +38,9 @@ if(session.getAttribute("isAdmin") != null)
     <ul class="navbar-nav text-center ml-auto">
      <li class="nav-link pr-5">${userEmail}</li>
       <li class="nav-item">
+        <a class="nav-link" href="/MyLittleCocktail/adminRecipeController?action=defaultView">레시피 관리</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="/MyLittleCocktail/userController?action=manageUser">유저 관리</a>
       </li>
       <li class="nav-item">
