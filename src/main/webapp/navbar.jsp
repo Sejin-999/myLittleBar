@@ -12,6 +12,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <% 
 String userEmail = null;
 boolean isAdmin = false;
@@ -24,7 +25,7 @@ if(session.getAttribute("isAdmin") != null)
 	isAdmin = (boolean) session.getAttribute("isAdmin");	
 }
 %>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark" style="color:black">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark" style="color:black; margin-bottom:1.5rem;">
   <a class="navbar-brand" href="drinkController">My Little Bar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
@@ -82,6 +83,6 @@ if(session.getAttribute("isAdmin") != null)
  	<%
  	} 
  	%>
-  
+
 </nav>
 </body>

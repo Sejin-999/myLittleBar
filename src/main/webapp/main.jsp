@@ -42,7 +42,7 @@
 			<h1 style="text-align: center; color: #FFE071; font-size: 4rem;">My
 				Little Bar</h1>
 			<br>
-			<br>
+			
 			<table style="width: 100%">
 				<tbody>
 					<c:set var="i" value="0" />
@@ -79,7 +79,7 @@
 			</table>
 		</div>
 		</article>
-				<footer>
+	<footer>
 		<%@ include file="../footer.jsp"%>
 	</footer>
 
