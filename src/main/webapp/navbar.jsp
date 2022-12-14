@@ -84,5 +84,4 @@ if(session.getAttribute("isAdmin") != null)
  	%>
   
 </nav>
-<br>
 </body>

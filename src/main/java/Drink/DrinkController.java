@@ -113,7 +113,7 @@ public class DrinkController extends HttpServlet {
 		request.setAttribute("cartlist", cartlist);
 		
 		try {
-			Drinks d=dao.getDrink(3);
+			Drinks d=dao.getDrink(13);
 			request.setAttribute("drink", d);
 		} catch (Exception e) {
 			e.printStackTrace();

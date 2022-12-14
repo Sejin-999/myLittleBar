@@ -25,9 +25,11 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-   
 }
-.a:hover { text-decoration: none; }
+
+.a:hover {
+	text-decoration: none;
+}
 </style>
 </head>
 

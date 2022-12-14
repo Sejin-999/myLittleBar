@@ -19,61 +19,64 @@
 </head>
 <body style="background-color: #230312;">
 	<%@ include file="../navbar.jsp"%>
-	<section style="min-height: 77%">
-		<div class="container" style="color: white;">
-			<table style="width: 100%">
-				<tbody>
-					<tr>
-						<td style="width: 50%; vertical-align: top; text-align: center;">
-							<h1 style="margin-top: 2%; margin-bottom: 5%;">Likes</h1>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table style="width: 100%; text-align: center;">
-								<tbody>
-									<c:set var="i" value="0" />
-									<c:set var="j" value="4" />
-									<c:choose>
-										<c:when test="${cartlist != null && fn:length(cartlist)>0}">
-											<c:forEach var="cart" items="${cartlist}" varStatus="status">
-												<c:if test="{i%j==0}">
-													<tr style="padding-right: 5%; padding-left: 5%;">
-												</c:if>
-												<td
-													style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
-													<a href="#">
-														<figure>
-															<img src="${drink.image}" style="width: 100%">
-															<figcaption>${drink.name}</figcaption>
-														</figure>
-												</a>
-												</td>
-												<c:if test="${i%j == j-1}">
-													</tr>
-												</c:if>
-												<c:set var="i" value="${i+1}" />
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<div
-												class="alert alert-danger alert-dismissible fade show mt-3">
-												에러 발생: ${error}</div>
-										</c:otherwise>
-									</c:choose>
-								</tbody>
-							</table>
-						</td>
+	<div id='body-wrapper'>
+		<div id="body-content">
+			<div class="container" style="color: white;">
+				<table style="width: 100%">
+					<tbody>
+						<tr>
+							<td style="width: 50%; vertical-align: top; text-align: center;">
+								<h1 style="margin-top: 2%; margin-bottom: 5%;">Likes</h1>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<table style="width: 100%; text-align: center;">
+									<tbody>
+										<c:set var="i" value="0" />
+										<c:set var="j" value="4" />
+										<c:choose>
+											<c:when test="${cartlist != null && fn:length(cartlist)>0}">
+												<c:forEach var="cart" items="${cartlist}" varStatus="status">
+													<c:if test="{i%j==0}">
+														<tr style="padding-right: 5%; padding-left: 5%;">
+													</c:if>
+													<td
+														style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
+														<a href="#">
+															<figure>
+																<img src="${drink.image}" style="width: 100%">
+																<figcaption>${drink.name}</figcaption>
+															</figure>
+													</a>
+													</td>
+													<c:if test="${i%j == j-1}">
+														</tr>
+													</c:if>
+													<c:set var="i" value="${i+1}" />
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<div
+													class="alert alert-danger alert-dismissible fade show mt-3">
+													에러 발생: ${error}</div>
+											</c:otherwise>
+										</c:choose>
+									</tbody>
+								</table>
+							</td>
 
 
-					</tr>
-				</tbody>
-			</table>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</section>
-	<footer>
-		<%@ include file="../footer.jsp"%>
-	</footer>
+		<footer class='footer'>
+			<%@ include file="../footer.jsp"%>
+		</footer>
+	</div>
+
 </body>
 
 </html>
