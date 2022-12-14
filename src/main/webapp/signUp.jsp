@@ -17,7 +17,7 @@
 <script src="./resources/js/bootstrap.bundle.min.js"></script>
 <title>SearchList</title>
 </head>
-<body style="background-color: #230312;" class="min-vh-100">
+<body style="background-color: #230312;">
 	<%@ include file="../navbar.jsp"%>
 
 	<article>
@@ -41,7 +41,6 @@
 					<div class="form-gruop mt-2">
 						<input type="text" class="form-control" placeholder="성명"
 							name="name" maxlength="20" required>
-
 					</div>
 					<input type="submit" class="btn btn-secondary form-control mt-2"
 						value="회원가입">
