@@ -82,6 +82,29 @@ public class AdminRecipeDAO {
 		}
 	}
 	
+	
+	public int insertCocktail(Drinks drink) throws Exception { //base데이터 추가
+		Connection conn = DatabaseUtil.open();
+		
+		String sql = "insert into Drink(name,image, base_id) values(?,?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (conn; pstmt;) {
+			pstmt.setString(1, drink.getName());
+			pstmt.setString(2, drink.getImage());
+			pstmt.setInt(3, drink.getBase_id());
+			pstmt.executeUpdate(); //데이터 삽입
+			ResultSet rs = pstmt.getGeneratedKeys();  
+			try (rs){
+				rs.next();  
+				return rs.getInt(1); //생성된 drink_id값 반환
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+	}
+		return -1; //데이터 베이스 오류
+		
+	}
+	
 //	
 //	public boolean checkDuplicate(String email) throws Exception  {
 //		Connection conn = DatabaseUtil.open();

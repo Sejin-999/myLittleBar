@@ -3,6 +3,7 @@ package AdminRecipe;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -21,6 +22,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import Drink.Base;
 import Drink.DrinkDAO;
+import Drink.Drinks;
 import Util.Constants;
 
 /**
@@ -130,30 +132,6 @@ public class AdminRecipeController extends HttpServlet {
 		return "redirect:/adminRecipeController?action=defaultView";
 	}
 
-	public String uploadRecipe(HttpServletRequest request) {
-		// Base base = new base()
-		try {
-			// 이미지 파일 저장
-			Part part = request.getPart("file");
-			String fileName = getFilename(part);
-			if (fileName != null && !fileName.isEmpty()) {
-				part.write(fileName);
-			}
-
-			// BeanUtils.populate(n, request.getParameterMap());
-			// n.setImg("/img/" + fileName);
-			// baseDAO.addBase(base);
-			// 1.Drinks에 업로드하기
-			// 2.방금 생긴 데이터의 id값 가져오기
-			// 3. DrinksDetail테이블에 Drink id , 위의 재료를 for문으로 가져와서? 재료 Id값 넣기
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			ctx.log("레시피 등록 과정에서 오류가 발생하였습니다.");
-			return "redirect:/adminRecipeController?action=defaultView";
-		}
-		return "redirect:/adminRecipeController?action=defaultView";
-	}
 
 	public String defaultView(HttpServletRequest request) {
 		
@@ -168,7 +146,6 @@ public class AdminRecipeController extends HttpServlet {
 		}
 		
 		
-		
 		try {
 			ingredientList=adminRecipDAO.getIngredientAll();
 			request.setAttribute("ingredientList", ingredientList);
@@ -181,6 +158,75 @@ public class AdminRecipeController extends HttpServlet {
 		return "./manageRecipe.jsp";
 	}
 
+	
+	public String uploadCocktail(HttpServletRequest request) {
+		
+		Drinks drink = new Drinks();
+		int drink_id = 0;
+		
+		if(request.getParameter("base_type").equals("0")) {
+			request.setAttribute("error", "베이스를 꼭 지정해주세요.");
+			return "redirect:/adminRecipeController?action=defaultView";	
+		}
+		else {
+			drink.setBase_id(Integer.parseInt(request.getParameter("base_type")));
+			drink.setName(request.getParameter("title"));
+			drink.setImage(request.getParameter("file"));
+			try {
+				Part part = request.getPart("file");
+				String fileName = getFilename(part);
+				if (fileName != null && !fileName.isEmpty()) {
+					part.write(Constants.path +"/base/"+fileName);
+				}
+				drink.setImage("image/drink/" + fileName);
+				drink_id = adminRecipDAO.insertCocktail(drink);
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				request.setAttribute("error", "칵테일 업로드 중 오류가 발생하였습니다.");
+				return "redirect:/adminRecipeController?action=defaultView";
+			}
+			
+			ctx.log("drinkId" + drink_id);
+		
+		}
+		
+		
+
+		 String ingredient[] = request.getParameterValues("ingredient");
+		 ctx.log("재료리스트");
+		 
+		 if(ingredient.length == 1 && ingredient[0] == "0") {
+			 request.setAttribute("error", "1개 이상의 재료를 업로드 해주세요.");
+			return "redirect:/adminRecipeController?action=defaultView";	
+		 }
+		 
+		 
+			 if(ingredient != null) {
+			  for(int i=0; i < ingredient.length; i++) {
+				 //insert(ingredient)
+			  }
+		 }
+	
+			 //Drink , DrinkDetail 두개의 테이블에 데이터 넣으면 끝
+			 //Drink에 일단 base, image, name정보를 넣기.
+			 //그리고 재료 리스트배열을 만들기
+			 
+			 
+			 //재료 리스트 배열의 크기가 0 , 또는 base타입이 --이라면예외처리
+			 
+			 //1. DrinkTable에 데이터삽입
+			 
+			 //2. 삽입된 drinkId값 받아오고 배열로 차례차례 데이터 다 집어넣기
+			 
+			 //3. 끝
+
+
+
+		return "redirect:/adminRecipeController?action=defaultView";
+	}
+	
+	
 	private String getFilename(Part part) {
 		String fileName = null;
 		// 파일이름이 들어있는 헤더 영역을 가지고 옴
@@ -191,4 +237,8 @@ public class AdminRecipeController extends HttpServlet {
 		ctx.log("파일명:" + fileName);
 		return fileName;
 	}
+	
+	
+	
+	
 }

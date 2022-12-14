@@ -164,15 +164,15 @@
 
 						<div class="modal-body text-center">
 
-							<form method="post" action="#" enctype="multipart/form-data">
+							<form method="post" action="/MyLittleCocktail/adminRecipeController?action=uploadCocktail" enctype="multipart/form-data">
 								<label class="form-label fs-5 text-dark">칵테일명</label> <input type="text"
 									name="title" class="form-control"> <label
 									class="form-label fs-5 text-dark">이미지</label> <input type="file"
 									name="file" class="form-control"> <br> <label
-									class="fs-5 text-dark">베이스 선택</label> <select name="rec_type"
+									class="fs-5 text-dark">베이스 선택</label> <select name="base_type"
 									class="form-control">
 
-									<option value="--">--</option>
+									<option value="0">--</option>
 
 									<c:if test="${baseList != null}">
 										<c:forEach var="base" items="${baseList}" varStatus="status">
@@ -188,7 +188,7 @@
 									<tbody>
 
 										<tr>
-											<td><select name="base_type" class="form-control">
+											<td><select name="ingredient" class="form-control">
 													<option value="--">--</option>
 													<c:if test="${baseList != null}">
 														<c:forEach var="ingredient" items="${ingredientList}"
@@ -228,7 +228,7 @@
 				rowIndex = oCurrentRow.rowIndex;
 				oCurrentCell = oCurrentRow.insertCell();
 				rowIndex++;
-				oCurrentCell.innerHTML = "<select name='ingredient" + rowIndex + "' class='form-control'> <option value='--'>--</option><c:if test='${baseList != null}'><c:forEach var='ingredient' items='${ingredientList}' varStatus='status'>	<option value='${ingredient.ingredient_id}'>${ingredient.name}</option></c:forEach>	</c:if></select>"
+				oCurrentCell.innerHTML = "<select name='ingredient' class='form-control'> <option value='0'>--</option><c:if test='${baseList != null}'><c:forEach var='ingredient' items='${ingredientList}' varStatus='status'>	<option value='${ingredient.ingredient_id}'>${ingredient.name}</option></c:forEach>	</c:if></select>"
 
 			}
 		</script>
