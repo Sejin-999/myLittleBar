@@ -105,7 +105,7 @@
 								<label class="form-label fs-5 text-dark">재료명</label> <input
 									type="text" name="name" class="form-control"> <label
 									class="form-label fs-5 text-dark">이미지</label> <input
-									type="file" name="file"  accept="image/*" class="form-control">
+									type="file" name="file" accept="image/*" class="form-control">
 								<button type="submit" class="btn btn-success mt-3">등록하기</button>
 							</form>
 
@@ -136,7 +136,7 @@
 								<label class="form-label fs-5 text-dark">베이스명</label> <input
 									type="text" name="name" class="form-control"> <label
 									class="form-label fs-5 text-dark">이미지</label> <input
-									type="file" name="file"  accept="image/*" class="form-control">
+									type="file" name="file" accept="image/*" class="form-control">
 								<button type="submit" class="btn btn-success mt-3">등록하기</button>
 							</form>
 
@@ -171,8 +171,8 @@
 								<label class="form-label fs-5 text-dark">칵테일명</label> <input
 									type="text" name="title" class="form-control"> <label
 									class="form-label fs-5 text-dark">이미지</label> <input
-									type="file" name="file" accept="image/*" class="form-control "> <br>
-								<label class="fs-5 text-dark">베이스 선택</label> <select
+									type="file" name="file" accept="image/*" class="form-control ">
+								<br> <label class="fs-5 text-dark">베이스 선택</label> <select
 									name="base_type" class="form-control">
 
 									<option value="0">--</option>
