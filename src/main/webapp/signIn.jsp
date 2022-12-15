@@ -25,7 +25,7 @@
 			<div class="jumbotron mt-5 mh-100">
 				<form method="post"
 					action="/MyLittleCocktail/userController?action=signIn">
-					<h3 style="text-align: center;">로그인</h3>
+					<h3 class="text-dark" style="text-align: center;">로그인</h3>
 					<div class="form-gruop mt-5">
 						<input type="text" class="form-control" placeholder="아이디"
 							name="email" maxlength="20" required>

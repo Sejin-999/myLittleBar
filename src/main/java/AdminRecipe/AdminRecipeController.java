@@ -3,6 +3,9 @@ package AdminRecipe;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -21,6 +24,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import Drink.Base;
 import Drink.DrinkDAO;
+import Drink.Drinks;
 import Util.Constants;
 
 /**
@@ -90,7 +94,7 @@ public class AdminRecipeController extends HttpServlet {
 			Part part = request.getPart("file");
 			String fileName = getFilename(part);
 			if (fileName != null && !fileName.isEmpty()) {
-				part.write(Constants.path +"/base/"+fileName);
+				part.write(Constants.path + "/base/" + fileName);
 			}
 			BeanUtils.populate(base, request.getParameterMap());
 
@@ -108,13 +112,13 @@ public class AdminRecipeController extends HttpServlet {
 
 	public String uploadIngredient(HttpServletRequest request) {
 		Ingredient ingredient = new Ingredient();
-		
+
 		try {
 			// 이미지 파일 저장
 			Part part = request.getPart("file");
 			String fileName = getFilename(part);
 			if (fileName != null && !fileName.isEmpty()) {
-				part.write(Constants.path +"/ingredient/"+fileName);
+				part.write(Constants.path + "/ingredient/" + fileName);
 			}
 			BeanUtils.populate(ingredient, request.getParameterMap());
 
@@ -130,55 +134,97 @@ public class AdminRecipeController extends HttpServlet {
 		return "redirect:/adminRecipeController?action=defaultView";
 	}
 
-	public String uploadRecipe(HttpServletRequest request) {
-		// Base base = new base()
-		try {
-			// 이미지 파일 저장
-			Part part = request.getPart("file");
-			String fileName = getFilename(part);
-			if (fileName != null && !fileName.isEmpty()) {
-				part.write(fileName);
-			}
-
-			// BeanUtils.populate(n, request.getParameterMap());
-			// n.setImg("/img/" + fileName);
-			// baseDAO.addBase(base);
-			// 1.Drinks에 업로드하기
-			// 2.방금 생긴 데이터의 id값 가져오기
-			// 3. DrinksDetail테이블에 Drink id , 위의 재료를 for문으로 가져와서? 재료 Id값 넣기
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			ctx.log("레시피 등록 과정에서 오류가 발생하였습니다.");
-			return "redirect:/adminRecipeController?action=defaultView";
-		}
-		return "redirect:/adminRecipeController?action=defaultView";
-	}
-
 	public String defaultView(HttpServletRequest request) {
-		
+
 		List<Base> baseList = null;
 		List<Ingredient> ingredientList = null;
 		try {
-			baseList=drinkDAO.getBaseAll();
+			baseList = drinkDAO.getBaseAll();
 			request.setAttribute("baseList", baseList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "베이스 리스트를 가져오던 중 오류가 발생하였습니다.");
 		}
-		
-		
-		
+
 		try {
-			ingredientList=adminRecipDAO.getIngredientAll();
+			ingredientList = adminRecipDAO.getIngredientAll();
 			request.setAttribute("ingredientList", ingredientList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", request.getAttribute("error") + "<br> 재료 리스트를 가져오던 중 오류가 발생하였습니다.");
 		}
 
-		
 		return "./manageRecipe.jsp";
+	}
+
+	public String uploadCocktail(HttpServletRequest request) {
+
+		Drinks drink = new Drinks();
+		int drink_id = 0;
+		String list[] = request.getParameterValues("ingredient");
+		ArrayList<String> ingredients = new ArrayList<String>();
+		if (list != null) {
+			for (String data : list) {
+				ingredients.add(data);
+			}
+
+			ArrayList<String> removed = new ArrayList<>();
+			for (String item : ingredients) {
+				if (item.equals("0")) {
+					removed.add(item);
+				}
+			}
+
+			for (String item : removed) {
+				ingredients.remove(item);
+			}
+
+			if (ingredients.isEmpty()) {
+				request.setAttribute("error", "1개 이상의 재료를 업로드 해주세요.");
+				return "./adminRecipeController?action=defaultView";
+			}
+		} else {
+			request.setAttribute("error", "1개 이상의 재료를 업로드 해주세요.");
+			return "./adminRecipeController?action=defaultView";
+		}
+
+		if (request.getParameter("base_type").equals("0")) {
+			request.setAttribute("error", "베이스를 꼭 지정해주세요.");
+			return "./adminRecipeController?action=defaultView";
+		} else {
+
+			drink.setBase_id(Integer.parseInt(request.getParameter("base_type")));
+			drink.setName(request.getParameter("title"));
+			drink.setImage(request.getParameter("file"));
+			try {
+				Part part = request.getPart("file");
+				String fileName = getFilename(part);
+				if (fileName != null && !fileName.isEmpty()) {
+					part.write(Constants.path + "/base/" + fileName);
+				}
+				drink.setImage("image/drink/" + fileName);
+				drink_id = adminRecipDAO.insertCocktail(drink);
+			} catch (Exception e) {
+				e.printStackTrace();
+
+				request.setAttribute("error", "칵테일 업로드 중 오류가 발생하였습니다.");
+				return "redirect:/adminRecipeController?action=defaultView";
+			}
+
+		}
+
+		for (String item : ingredients) {
+
+			try {
+				adminRecipDAO.insertCocktailDetail(drink_id, Integer.parseInt(item));
+
+			} catch (Exception e) {
+				request.setAttribute("error", "재료 업로드 중 오류가 발생하였습니다.");
+				return "./adminRecipeController?action=defaultView";
+			}
+		}
+
+		return "redirect:/adminRecipeController?action=defaultView";
 	}
 
 	private String getFilename(Part part) {
@@ -188,7 +234,7 @@ public class AdminRecipeController extends HttpServlet {
 		System.out.println("Header => " + header);
 		int start = header.indexOf("filename=");
 		fileName = header.substring(start + 10, header.length() - 1);
-		ctx.log("파일명:" + fileName);
 		return fileName;
 	}
+
 }
