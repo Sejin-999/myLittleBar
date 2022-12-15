@@ -102,10 +102,10 @@
 							<form method="post"
 								action="/MyLittleCocktail/adminRecipeController?action=uploadIngredient"
 								enctype="multipart/form-data">
-								<label class="form-label fs-5 text-dark">재료명</label> <input type="text"
-									name="name" class="form-control"> <label
-									class="form-label fs-5 text-dark">이미지</label> <input type="file"
-									name="file" class="form-control">
+								<label class="form-label fs-5 text-dark">재료명</label> <input
+									type="text" name="name" class="form-control"> <label
+									class="form-label fs-5 text-dark">이미지</label> <input
+									type="file" name="file" class="form-control">
 								<button type="submit" class="btn btn-success mt-3">등록하기</button>
 							</form>
 
@@ -133,10 +133,10 @@
 							<form method="post"
 								action="/MyLittleCocktail/adminRecipeController?action=uploadBase"
 								enctype="multipart/form-data">
-								<label class="form-label fs-5 text-dark">베이스명</label> <input type="text"
-									name="name" class="form-control"> <label
-									class="form-label fs-5 text-dark">이미지</label> <input type="file"
-									name="file" class="form-control">
+								<label class="form-label fs-5 text-dark">베이스명</label> <input
+									type="text" name="name" class="form-control"> <label
+									class="form-label fs-5 text-dark">이미지</label> <input
+									type="file" name="file" class="form-control">
 								<button type="submit" class="btn btn-success mt-3">등록하기</button>
 							</form>
 
@@ -164,13 +164,15 @@
 
 						<div class="modal-body text-center">
 
-							<form method="post" action="/MyLittleCocktail/adminRecipeController?action=uploadCocktail" enctype="multipart/form-data">
-								<label class="form-label fs-5 text-dark">칵테일명</label> <input type="text"
-									name="title" class="form-control"> <label
-									class="form-label fs-5 text-dark">이미지</label> <input type="file"
-									name="file" class="form-control"> <br> <label
-									class="fs-5 text-dark">베이스 선택</label> <select name="base_type"
-									class="form-control">
+							<form method="post"
+								action="/MyLittleCocktail/adminRecipeController?action=uploadCocktail"
+								enctype="multipart/form-data">
+								<label class="form-label fs-5 text-dark">칵테일명</label> <input
+									type="text" name="title" class="form-control"> <label
+									class="form-label fs-5 text-dark">이미지</label> <input
+									type="file" name="file" class="form-control"> <br>
+								<label class="fs-5 text-dark">베이스 선택</label> <select
+									name="base_type" class="form-control">
 
 									<option value="0">--</option>
 
@@ -189,7 +191,7 @@
 
 										<tr>
 											<td><select name="ingredient" class="form-control">
-													<option value="--">--</option>
+													<option value="0">--</option>
 													<c:if test="${baseList != null}">
 														<c:forEach var="ingredient" items="${ingredientList}"
 															varStatus="status">
@@ -220,7 +222,6 @@
 		</div>
 
 		<script>
-			var rowIndex = 1;
 			function addIngredient() {
 				var oCurrentRow, oCurrentCell;
 				var sAddingHtml;

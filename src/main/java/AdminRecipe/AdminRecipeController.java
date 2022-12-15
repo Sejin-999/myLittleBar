@@ -92,7 +92,7 @@ public class AdminRecipeController extends HttpServlet {
 			Part part = request.getPart("file");
 			String fileName = getFilename(part);
 			if (fileName != null && !fileName.isEmpty()) {
-				part.write(Constants.path +"/base/"+fileName);
+				part.write(Constants.path + "/base/" + fileName);
 			}
 			BeanUtils.populate(base, request.getParameterMap());
 
@@ -110,13 +110,13 @@ public class AdminRecipeController extends HttpServlet {
 
 	public String uploadIngredient(HttpServletRequest request) {
 		Ingredient ingredient = new Ingredient();
-		
+
 		try {
 			// 이미지 파일 저장
 			Part part = request.getPart("file");
 			String fileName = getFilename(part);
 			if (fileName != null && !fileName.isEmpty()) {
-				part.write(Constants.path +"/ingredient/"+fileName);
+				part.write(Constants.path + "/ingredient/" + fileName);
 			}
 			BeanUtils.populate(ingredient, request.getParameterMap());
 
@@ -132,43 +132,45 @@ public class AdminRecipeController extends HttpServlet {
 		return "redirect:/adminRecipeController?action=defaultView";
 	}
 
-
 	public String defaultView(HttpServletRequest request) {
-		
+
 		List<Base> baseList = null;
 		List<Ingredient> ingredientList = null;
 		try {
-			baseList=drinkDAO.getBaseAll();
+			baseList = drinkDAO.getBaseAll();
 			request.setAttribute("baseList", baseList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "베이스 리스트를 가져오던 중 오류가 발생하였습니다.");
 		}
-		
-		
+
 		try {
-			ingredientList=adminRecipDAO.getIngredientAll();
+			ingredientList = adminRecipDAO.getIngredientAll();
 			request.setAttribute("ingredientList", ingredientList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", request.getAttribute("error") + "<br> 재료 리스트를 가져오던 중 오류가 발생하였습니다.");
 		}
 
-		
 		return "./manageRecipe.jsp";
 	}
 
-	
 	public String uploadCocktail(HttpServletRequest request) {
-		
+
 		Drinks drink = new Drinks();
 		int drink_id = 0;
-		
-		if(request.getParameter("base_type").equals("0")) {
-			request.setAttribute("error", "베이스를 꼭 지정해주세요.");
-			return "redirect:/adminRecipeController?action=defaultView";	
+		String ingredient[] = request.getParameterValues("ingredient");
+		ctx.log(ingredient[0]);
+		if (ingredient == null) {
+			request.setAttribute("error", "1개 이상의 재료를 업로드 해주세요.");
+			return "./adminRecipeController?action=defaultView";
 		}
-		else {
+
+		if (request.getParameter("base_type").equals("0")) {
+			request.setAttribute("error", "베이스를 꼭 지정해주세요.");
+			return "./adminRecipeController?action=defaultView";
+		} else {
+	
 			drink.setBase_id(Integer.parseInt(request.getParameter("base_type")));
 			drink.setName(request.getParameter("title"));
 			drink.setImage(request.getParameter("file"));
@@ -176,7 +178,7 @@ public class AdminRecipeController extends HttpServlet {
 				Part part = request.getPart("file");
 				String fileName = getFilename(part);
 				if (fileName != null && !fileName.isEmpty()) {
-					part.write(Constants.path +"/base/"+fileName);
+					part.write(Constants.path + "/base/" + fileName);
 				}
 				drink.setImage("image/drink/" + fileName);
 				drink_id = adminRecipDAO.insertCocktail(drink);
@@ -186,47 +188,28 @@ public class AdminRecipeController extends HttpServlet {
 				request.setAttribute("error", "칵테일 업로드 중 오류가 발생하였습니다.");
 				return "redirect:/adminRecipeController?action=defaultView";
 			}
-			
-			ctx.log("drinkId" + drink_id);
-		
+
+
 		}
-		
-		
-
-		 String ingredient[] = request.getParameterValues("ingredient");
-		 ctx.log("재료리스트");
-		 
-		 if(ingredient.length == 1 && ingredient[0] == "0") {
-			 request.setAttribute("error", "1개 이상의 재료를 업로드 해주세요.");
-			return "redirect:/adminRecipeController?action=defaultView";	
-		 }
-		 
-		 
-			 if(ingredient != null) {
-			  for(int i=0; i < ingredient.length; i++) {
-				 //insert(ingredient)
-			  }
-		 }
-	
-			 //Drink , DrinkDetail 두개의 테이블에 데이터 넣으면 끝
-			 //Drink에 일단 base, image, name정보를 넣기.
-			 //그리고 재료 리스트배열을 만들기
-			 
-			 
-			 //재료 리스트 배열의 크기가 0 , 또는 base타입이 --이라면예외처리
-			 
-			 //1. DrinkTable에 데이터삽입
-			 
-			 //2. 삽입된 drinkId값 받아오고 배열로 차례차례 데이터 다 집어넣기
-			 
-			 //3. 끝
 
 
+		if (ingredient != null) {
+			for (int i = 0; i < ingredient.length; i++) {
+				if (!ingredient[i].equals("0")) {
+					try {
+						adminRecipDAO.insertCocktailDetail(drink_id, Integer.parseInt(ingredient[i]));
+
+					} catch (Exception e) {
+						request.setAttribute("error", "재료 업로드 중 오류가 발생하였습니다.");
+						return "./adminRecipeController?action=defaultView";
+					}
+				}
+			}
+		}
 
 		return "redirect:/adminRecipeController?action=defaultView";
 	}
-	
-	
+
 	private String getFilename(Part part) {
 		String fileName = null;
 		// 파일이름이 들어있는 헤더 영역을 가지고 옴
@@ -234,11 +217,7 @@ public class AdminRecipeController extends HttpServlet {
 		System.out.println("Header => " + header);
 		int start = header.indexOf("filename=");
 		fileName = header.substring(start + 10, header.length() - 1);
-		ctx.log("파일명:" + fileName);
 		return fileName;
 	}
-	
-	
-	
-	
+
 }
