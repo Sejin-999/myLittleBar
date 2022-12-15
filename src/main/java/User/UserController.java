@@ -115,17 +115,22 @@ public class UserController extends HttpServlet {
 				request.setAttribute("error", "가입되지 않은 이메일입니다.");
 				return "./signIn.jsp";
 			}
+			SignInDTO result = dao.signIn(user);
+			if (result.getUser_id() != -1) { //비밀번호가 일치한다면
+				if (result.getIs_admin() == true) { //관리자라면
+					session.setAttribute("userEmail", user.getEmail());
+					session.setAttribute("isAdmin", true);
+					session.setAttribute("userId", result.getUser_id());
+					return "drinkController?action=listBase";
+				} else {
+					session.setAttribute("userEmail", user.getEmail());
+					session.setAttribute("userId", result.getUser_id());
+					return "drinkController?action=listBase";
+				}
 
-			if (dao.signIn(user) == 2) {
-				session.setAttribute("userEmail", user.getEmail());
-				session.setAttribute("isAdmin", true);
-				return "drinkController?action=listBase";
 			}
 
-			if (dao.signIn(user) == 1) {
-				session.setAttribute("userEmail", user.getEmail());
-				return "drinkController?action=listBase";
-			} else {
+			else {
 				request.setAttribute("error", "비밀번호가 일치하지 않습니다.");
 				return "./signIn.jsp";
 			}
