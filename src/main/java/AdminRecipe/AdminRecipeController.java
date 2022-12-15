@@ -3,6 +3,8 @@ package AdminRecipe;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -159,9 +161,29 @@ public class AdminRecipeController extends HttpServlet {
 
 		Drinks drink = new Drinks();
 		int drink_id = 0;
-		String ingredient[] = request.getParameterValues("ingredient");
-		ctx.log(ingredient[0]);
-		if (ingredient == null) {
+		String list[] = request.getParameterValues("ingredient");
+		ArrayList<String> ingredients = new ArrayList<String>();
+		if (list != null) {
+			for (String data : list) {
+				ingredients.add(data);
+			}
+
+			ArrayList<String> removed = new ArrayList<>();
+			for (String item : ingredients) {
+				if (item.equals("0")) {
+					removed.add(item);
+				}
+			}
+
+			for (String item : removed) {
+				ingredients.remove(item);
+			}
+
+			if (ingredients.isEmpty()) {
+				request.setAttribute("error", "1개 이상의 재료를 업로드 해주세요.");
+				return "./adminRecipeController?action=defaultView";
+			}
+		} else {
 			request.setAttribute("error", "1개 이상의 재료를 업로드 해주세요.");
 			return "./adminRecipeController?action=defaultView";
 		}
@@ -170,7 +192,7 @@ public class AdminRecipeController extends HttpServlet {
 			request.setAttribute("error", "베이스를 꼭 지정해주세요.");
 			return "./adminRecipeController?action=defaultView";
 		} else {
-	
+
 			drink.setBase_id(Integer.parseInt(request.getParameter("base_type")));
 			drink.setName(request.getParameter("title"));
 			drink.setImage(request.getParameter("file"));
@@ -189,21 +211,16 @@ public class AdminRecipeController extends HttpServlet {
 				return "redirect:/adminRecipeController?action=defaultView";
 			}
 
-
 		}
 
+		for (String item : ingredients) {
 
-		if (ingredient != null) {
-			for (int i = 0; i < ingredient.length; i++) {
-				if (!ingredient[i].equals("0")) {
-					try {
-						adminRecipDAO.insertCocktailDetail(drink_id, Integer.parseInt(ingredient[i]));
+			try {
+				adminRecipDAO.insertCocktailDetail(drink_id, Integer.parseInt(item));
 
-					} catch (Exception e) {
-						request.setAttribute("error", "재료 업로드 중 오류가 발생하였습니다.");
-						return "./adminRecipeController?action=defaultView";
-					}
-				}
+			} catch (Exception e) {
+				request.setAttribute("error", "재료 업로드 중 오류가 발생하였습니다.");
+				return "./adminRecipeController?action=defaultView";
 			}
 		}
 
