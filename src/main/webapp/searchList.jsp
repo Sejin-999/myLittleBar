@@ -7,22 +7,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384- b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-	crossorigin="anonymous"></script> -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+<link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
 <link rel="stylesheet" href="common.css">
+<script src="./resources/js/jquery-3.5.1.min.js"></script>
+<script src="./resources/js/bootstrap.bundle.min.js"></script>
 <title>SearchList</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
+h1{font-family: "Courgette", sans-serif;
+color:#FF9614;}
+figcaption{
+	font-family: "Signika", sans-serif;
+}
 .a:hover {
 	text-decoration: none;
 }
 </style>
 </head>
 <body style="background-color: #230312;">
-
 	<%@ include file="../navbar.jsp"%>
 	<article>
 		<div class="container" style="color: white;">
@@ -57,7 +63,7 @@
 												</c:if>
 												<td
 													style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
-													<a class="a" href="#">
+													<a class="a" href="drinkController?action=getSearchDrink&drink_id=${drinks.drink_id}">
 														<figure>
 															<img src="${drinks.image}" style="width: 100%">
 															<figcaption
@@ -84,6 +90,7 @@
 
 				</tbody>
 			</table>
+
 		</div>
 	</article>
 	<footer class="">
