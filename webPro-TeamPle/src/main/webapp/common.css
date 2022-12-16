@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+body {
+	height: 100vh;
+	display:flex; flex-direction:column; 
+}
+
+
+article{ flex:1; }
+
+.footer {
+	position: relative; 
+	transform: translatY(-100%);
+}
