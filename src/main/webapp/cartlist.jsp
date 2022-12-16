@@ -16,6 +16,24 @@
 <link rel="stylesheet" href="common.css">
 <title>likeList</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
+h1{font-family: "Courgette", sans-serif;color:#FF9614;}
+figcaption{
+	font-family: "Signika", sans-serif;
+}
+ .image {
+	width: 250px;
+	height: 250px;
+	margin-top: 1.5rem;
+	margin-bottom: 3rem;
+} 
+
+.imageSize {
+	width: 15rem;
+	height:15rem;
+	object-fit: cover;
+}
+
 .a:hover {
 	text-decoration: none;
 }
@@ -23,7 +41,7 @@
 </head>
 <body style="background-color: #230312;">
 	<%@ include file="../navbar.jsp"%>
-	<section style="min-height: 77%">
+	<article>
 		<div class="container" style="color: white;">
 			<table style="width: 100%">
 				<tbody>
@@ -47,9 +65,10 @@
 												<td
 													style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
 													<a class="a" href="#">
-														<figure>
-															<img src="${drink.image}" style="width: 100%">
-															<figcaption style="text-align: center; color: #FFFFFF; text-decoration: none; font-size: 2rem;">${drink.name}</figcaption>
+														<figure class="image">
+															<img class="imageSize" src="${cart.image}">
+															<figcaption
+																style="text-align: center; color: #FFFFFF; text-decoration: none; font-size: 1.5rem;">${cart.name}</figcaption>
 														</figure>
 												</a>
 												</td>
@@ -70,15 +89,15 @@
 						</td>
 
 
-						</tr>
-					</tbody>
-				</table>
-			</div>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<footer class='footer'>
-			<%@ include file="../footer.jsp"%>
-		</footer>
-	</div>
+	</article>
+
+	<footer>
+		<%@ include file="../footer.jsp"%>
+	</footer>
 
 </body>
 
