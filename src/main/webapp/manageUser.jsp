@@ -15,6 +15,7 @@
 <script src="./resources/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="common.css">
 <title>SearchList</title>
+
 </head>
 <body style="background-color: #230312;">
 	<%@ include file="../navbar.jsp"%>

@@ -13,14 +13,20 @@
 	crossorigin="anonymous"></script> -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+<link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
 <link rel="stylesheet" href="common.css">
 <title>likeList</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
-h1{font-family: "Courgette", sans-serif;color:#FF9614;}
+h1{
+	font-family: "Courgette", sans-serif;
+}
 figcaption{
 	font-family: "Signika", sans-serif;
 }
+
  .image {
 	width: 250px;
 	height: 250px;
