@@ -16,12 +16,15 @@
 <link rel="stylesheet" href="common.css">
 <title>SearchList</title>
 <style>
-.a:hover { text-decoration: none; }
+.a:hover {
+	text-decoration: none;
+}
 </style>
 </head>
 <body style="background-color: #230312;">
-	<div id='wrapper'>
-		<%@ include file="../navbar.jsp"%>
+
+	<%@ include file="../navbar.jsp"%>
+	<article>
 		<div class="container" style="color: white;">
 			<table style="width: 100%">
 				<tbody>
@@ -54,10 +57,11 @@
 												</c:if>
 												<td
 													style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
-													<a class="a" href="#">
+													<a class="a" href="drinkController?action=getDetailDrink&drink_id=${drinks.drink_id}">
 														<figure>
 															<img src="${drinks.image}" style="width: 100%">
-															<figcaption style="text-align:center; color: #FFFFFF; text-decoration: none; font-size: 2rem;">${drinks.name}</figcaption>
+															<figcaption
+																style="text-align: center; color: #FFFFFF; text-decoration: none; font-size: 2rem;">${drinks.name}</figcaption>
 														</figure>
 												</a>
 												</td>
@@ -81,8 +85,8 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
-	<footer style=''>
+	</article>
+	<footer class="">
 		<%@ include file="../footer.jsp"%>
 	</footer>
 </body>

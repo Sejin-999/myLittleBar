@@ -1,13 +1,12 @@
 @charset "UTF-8";
 
-html, body {
-	height: 100%
+body {
+	height: 100vh;
+	display:flex; flex-direction:column; 
 }
 
-#wrapper {
-	min-height: 90%;
-	position: relative;
-}
+
+article{ flex:1; }
 
 .footer {
 	position: relative; 

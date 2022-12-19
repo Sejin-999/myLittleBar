@@ -14,10 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DrinkDetail.DrinkBase;
+import DrinkDetail.DrinkDetailDAO;
+import DrinkDetail.Ingredient;
+
 @WebServlet("/drinkController")
 public class DrinkController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DrinkDAO dao;
+	private DrinkDetailDAO ddao;
 	private ServletContext ctx;
 	
 	private final String START_PAGE="./main.jsp";
@@ -25,6 +30,7 @@ public class DrinkController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		
+		ddao = new DrinkDetailDAO();
 		dao=new DrinkDAO();
 		ctx=getServletContext();
 	}
@@ -98,6 +104,7 @@ public class DrinkController extends HttpServlet {
 			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
 		}
 		
+		
 		return "searchList.jsp";
 	}
 	
@@ -121,6 +128,44 @@ public class DrinkController extends HttpServlet {
 			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
 		}
 		return "cartlist.jsp";
+	}
+	
+	public String getDetailDrink(HttpServletRequest request) throws Exception {
+		int drink_id = Integer.parseInt(request.getParameter("drink_id"));
+		List <Ingredient> ingredientList = null;
+		
+		//base
+		try {
+			DrinkBase b=ddao.getBase(drink_id);
+			request.setAttribute("base", b);
+		}catch(SQLException e) {
+			e.printStackTrace();
+			ctx.log("디테일 드링크 : 베이스를 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
+		}
+		// drink
+		try {
+			Drinks d = ddao.getDrink(drink_id);
+			request.setAttribute("drink", d);
+		}catch(SQLException e) {
+			e.printStackTrace();
+			ctx.log("디테일 드링크 : 칵테일을 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "칵테일을 정상적으로 가져오지 못했습니다");
+		}
+		// ingredient
+		try {
+			ingredientList = ddao.getIngredient(drink_id);
+			request.setAttribute("ingredientList", ingredientList);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ctx.log("디테일 드링크 : 재료리스트를 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "재료리스트를 정상적으로 가져오지 못했습니다");
+		}
+		
+		
+		
+		return "DetailDrink.jsp";
 	}
 	
 }

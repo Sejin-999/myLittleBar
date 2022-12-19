@@ -22,4 +22,6 @@ public class Base {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	
 }
