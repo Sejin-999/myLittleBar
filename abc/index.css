@@ -7,6 +7,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #c7b0c2;
+  font-family: "Courgette", cursive;
 }
 
 .container {
@@ -27,17 +29,22 @@ body {
   margin-left: 2rem;
 }
 .container .drink:hover {
-  height: 400px;
+  height: 600px;
+}
+.container .drink:hover .content {
+  display: flex;
+  transition: 1s ease-in-out;
 }
 .container .drink {
+  background-color: white;
   position: relative;
-  max-height: 400px;
+  max-height: 700px;
   height: 350px;
   border: 1px solid rgba(0, 0, 0, 0.6);
   padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
   border-radius: 10px;
-  transition: 0.3s ease-in-out;
+  transition: 0.6s ease-in-out;
 }
 .container .drink .imgbx {
   position: relative;
@@ -49,6 +56,28 @@ body {
   align-items: center;
   justify-content: center;
   margin-top: 5px;
+  font-size: 28px;
+}
+.container .drink .content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 1rem;
+  width: 300px;
+  display: none;
+  font-family: "Noto Serif KR", serif;
+  font-weight: 500;
+  font-size: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.container .drink .content p {
+  margin-top: 15px;
+}
+.container .drink .content p a {
+  text-decoration: none;
+  color: rgb(103, 187, 103);
 }
 
 .container__drink__img {
