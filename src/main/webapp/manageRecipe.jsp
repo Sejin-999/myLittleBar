@@ -13,7 +13,9 @@
 	rel="stylesheet"
 	integrity="sha384- BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
 	crossorigin="anonymous">
-
+<link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link rel="stylesheet" href="common.css">
@@ -22,6 +24,19 @@
 <title>SearchList</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
+a,h5,label,button{
+	font-family: "Courgette", sans-serif;
+}
+label{
+	font-family: "Courgette", sans-serif;
+}
+div{
+	font-family: "Courgette", sans-serif;
+}
+
+
+
 .imgSize {
 	top: 0;
 	left: 0;
@@ -59,22 +74,22 @@
 				<div class="col-4 image align align-self-center ">
 					<img class="imgSize"
 						src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnleqeY06WPRQG9isU963b92HCCrXCL6fAvg&usqp=CAU" />
-					<a class="btn btn-primary mx-1 mt-2" data-toggle="modal"
-						href="#registerBase">베이스 등록</a>
+					<a class="btn btn-warning mx-1 mt-2" data-toggle="modal"
+						href="#registerBase">Base Register</a>
 				</div>
 
 				<div class="col-4 image align align-self-center ">
 					<img class=" imgSize"
 						src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3QgK52TAjJR3EIKgwo3UJDRsqwJMBkIGyfg&usqp=CAU" />
-					<a class="btn btn-primary mx-1 mt-2" data-toggle="modal"
-						href="#registerIngredient">재료 등록</a>
+					<a class="btn btn-warning mx-1 mt-2" data-toggle="modal"
+						href="#registerIngredient">Ingredient Register</a>
 				</div>
 
 				<div class="col-4 image align align-self-center ">
 					<img class=" imgSize"
 						src="https://media.timeout.com/images/105631937/750/422/image.jpg" />
-					<a class="btn btn-primary mx-1 mt-2" data-toggle="modal"
-						href="#registerCocktail">칵테일 레시피 등록</a>
+					<a class="btn btn-warning mx-1 mt-2" data-toggle="modal"
+						href="#registerCocktail">Cocktail Recipe Register</a>
 				</div>
 
 
@@ -91,7 +106,7 @@
 						<!-- 모달 내용이 들어감 -->
 						<div class="modal-header">
 							<!-- 모달 내용의 맨 윗부분 -->
-							<h5 class="modal-title text-dark" id="modal">재료 등록</h5>
+							<h5 class="modal-title text-dark" id="modal">Ingredient Register</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -102,11 +117,11 @@
 							<form method="post"
 								action="/MyLittleCocktail/adminRecipeController?action=uploadIngredient"
 								enctype="multipart/form-data">
-								<label class="form-label fs-5 text-dark">재료명</label> <input
+								<label class="form-label fs-5 text-dark">Ingredient Name</label> <input
 									type="text" name="name" class="form-control"> <label
-									class="form-label fs-5 text-dark">이미지</label> <input
+									class="form-label fs-5 text-dark">image</label> <input
 									type="file" name="file" accept="image/*" class="form-control">
-								<button type="submit" class="btn btn-success mt-3">등록하기</button>
+								<button type="submit" class="btn btn-success mt-3">Register</button>
 							</form>
 
 						</div>
@@ -122,7 +137,7 @@
 						<!-- 모달 내용이 들어감 -->
 						<div class="modal-header">
 							<!-- 모달 내용의 맨 윗부분 -->
-							<h5 class="modal-title text-dark" id="modal">베이스 등록</h5>
+							<h5 class="modal-title text-dark" id="modal">Base Register</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -133,11 +148,11 @@
 							<form method="post"
 								action="/MyLittleCocktail/adminRecipeController?action=uploadBase"
 								enctype="multipart/form-data">
-								<label class="form-label fs-5 text-dark">베이스명</label> <input
+								<label class="form-label fs-5 text-dark">Base Name</label> <input
 									type="text" name="name" class="form-control"> <label
-									class="form-label fs-5 text-dark">이미지</label> <input
+									class="form-label fs-5 text-dark">image</label> <input
 									type="file" name="file" accept="image/*" class="form-control">
-								<button type="submit" class="btn btn-success mt-3">등록하기</button>
+								<button type="submit" class="btn btn-success mt-3">Register</button>
 							</form>
 
 						</div>
@@ -154,7 +169,7 @@
 						<!-- 모달 내용이 들어감 -->
 						<div class="modal-header">
 							<!-- 모달 내용의 맨 윗부분 -->
-							<h5 class="modal-title text-dark" id="modal">칵테일 레시피 등록</h5>
+							<h5 class="modal-title text-dark" id="modal">Cocktail Recipe Register</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -168,11 +183,11 @@
 							<form method="post"
 								action="/MyLittleCocktail/adminRecipeController?action=uploadCocktail"
 								enctype="multipart/form-data">
-								<label class="form-label fs-5 text-dark">칵테일명</label> <input
+								<label class="form-label fs-5 text-dark">Cocktail Name</label> <input
 									type="text" name="title" class="form-control"> <label
-									class="form-label fs-5 text-dark">이미지</label> <input
+									class="form-label fs-5 text-dark">image</label> <input
 									type="file" name="file" accept="image/*" class="form-control ">
-								<br> <label class="fs-5 text-dark">베이스 선택</label> <select
+								<br> <label class="fs-5 text-dark">Select Base</label> <select
 									name="base_type" class="form-control">
 
 									<option value="0">--</option>
@@ -183,7 +198,7 @@
 										</c:forEach>
 									</c:if>
 
-								</select> <br> <label class="fs-5 text-dark">재료 선택</label>
+								</select> <br> <label class="fs-5 text-dark">Select Ingredient</label>
 
 								<table id="insertTable" class="table"
 									style="text-align: center; border: 1px solid #dddddd">
@@ -207,9 +222,9 @@
 
 								</table>
 
-								<input type="button" class="btn btn-success  mt-3" value="재료 추가"
+								<input type="button" class="btn btn-success  mt-3" value="Add Ingredient"
 									onClick="addIngredient()">
-								<button type="submit" class="btn btn-success mt-3">등록하기</button>
+								<button type="submit" class="btn btn-success mt-3">Register</button>
 
 
 							</form>

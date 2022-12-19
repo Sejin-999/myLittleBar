@@ -5,10 +5,10 @@ body {
 	display:flex; flex-direction:column; 
 }
 
-
 article{ flex:1; }
 
-.footer {
+footer {
 	position: relative; 
 	transform: translatY(-100%);
+	margin-top:3rem;
 }
