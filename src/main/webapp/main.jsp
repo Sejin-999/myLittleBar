@@ -9,11 +9,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+<link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
 <link rel="stylesheet" href="common.css">
-<!-- <script src="./resources/js/jquery-3.5.1.min.js"></script>
-<script src="./resources/js/bootstrap.bundle.min.js"></script> -->
+<script src="./resources/js/jquery-3.5.1.min.js"></script>
+<script src="./resources/js/bootstrap.bundle.min.js"></script>
 <title>SearchList</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
+h1{
+	font-family: "Courgette", sans-serif;
+}
+
+figcaption{
+	font-family: "Signika", sans-serif;
+}
+
 .image {
 	width: 250px;
 	height: 250px;
@@ -25,22 +37,25 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-   
 }
-.a:hover { text-decoration: none; }
+
+.a:hover {
+	text-decoration: none;
+}
 </style>
 </head>
 
 <body style="background-color: #230312;">
-
-		<%@ include file="../navbar.jsp"%>
-		<article>
+	<%@ include file="../navbar.jsp"%>
+	<%if(userId!=0){ %>
+	<%} %>
+	<article>
 		<div class='container'>
 			<br>
 			<h1 style="text-align: center; color: #FFE071; font-size: 4rem;">My
 				Little Bar</h1>
 			<br>
-			<br>
+
 			<table style="width: 100%">
 				<tbody>
 					<c:set var="i" value="0" />
@@ -49,14 +64,15 @@
 						<c:when test="${baseList != null && fn:length(baseList)>0}">
 							<c:forEach var="base" items="${baseList}" varStatus="status">
 								<c:if test="{i%j==0}">
-									<tr style="padding-right: 5%; padding-left: 5%; padding-top:3%;">
+									<tr
+										style="padding-right: 5%; padding-left: 5%; padding-top: 3%;">
 								</c:if>
-								<td  
+								<td
 									style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
 									<a class="a"
 									href="drinkController?action=getSearchList&base_id=${base.base_id}">
 										<figure class="image">
-											<img class="imageSize" src="${base.image}" >
+											<img class="imageSize" src="${base.image}">
 											<figcaption
 												style="text-align: center; color: #FFFFFF; text-decoration: none; font-size: 2rem;">${base.name}</figcaption>
 										</figure>
@@ -76,8 +92,9 @@
 				</tbody>
 			</table>
 		</div>
-		</article>
-				<footer>
+	</article>
+
+	<footer>
 		<%@ include file="../footer.jsp"%>
 	</footer>
 

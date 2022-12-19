@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import DrinkDetail.DrinkBase;
 import DrinkDetail.DrinkDetailDAO;
+import DrinkDetail.DrinkInfo;
 import DrinkDetail.Ingredient;
 
 @WebServlet("/drinkController")
@@ -161,6 +162,17 @@ public class DrinkController extends HttpServlet {
 			e.printStackTrace();
 			ctx.log("디테일 드링크 : 재료리스트를 가져오는 과정에서 문제 발생");
 			request.setAttribute("error", "재료리스트를 정상적으로 가져오지 못했습니다");
+		}
+		//drinkInfo
+		try {
+			DrinkInfo dinfo = ddao.getDrinkInfo(drink_id);
+			System.out.println("컨트롤러 확인 :" +	dinfo.getDrinkInfo_content());
+			request.setAttribute("info", dinfo);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ctx.log("드링크 정보 : 드링크 정보를 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "드링크 정보를 정상적으로 가져오지 못했습니다");
 		}
 		
 		
