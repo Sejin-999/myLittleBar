@@ -20,7 +20,21 @@ body{
     flex-direction: column;
     flex-wrap: wrap;
     padding: 30px;
-    
+    #plus{
+        width: 150px;
+        height: 80px;
+        margin-bottom: 30px;
+        background-color: #c7b0c2;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+        font-size: 30px;
+        
+    }
+    #plus:hover{
+        font-size: 35px;
+        width: 170px;
+        height: 90px;
+    }
     .content-box{
         display: flex;
         margin-top: 200px;

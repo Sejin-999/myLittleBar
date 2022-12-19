@@ -11,6 +11,7 @@
 </head>
 <body>
     <div class="container">
+        <input type="button" id="plus" value="찜" />
         <div class="drink">
             <div class="imgBx">
                 <img class="container__drink__img" src="./img/drink/gin_tonic.jpg">
@@ -18,6 +19,7 @@
             <div class="title">
                 <h2>GIN TONIC</h2>
             </div>
+            
             <div class="content">
                 <span>
                     말라리아 때문에 탄생하게 되었는데 퀴닌은 
@@ -50,5 +52,12 @@
             
         </div>
     </div>
+    <script>
+        let plus= document.getElementById("plus");
+        plus.addEventListener("click" ,function(e){
+            alert("저장");
+        } )
+
+    </script>
 </body>
 </html>
