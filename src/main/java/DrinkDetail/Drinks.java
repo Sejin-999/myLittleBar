@@ -1,12 +1,12 @@
 package DrinkDetail;
 
 public class Drinks {
-	private int drink_id;
+	private static int drink_id;
 	private int base_id;
 	private String image;
 	private String name;
 	
-	public int getDrink_id() {
+	public static int getDrink_id() {
 		return drink_id;
 	}
 	public void setDrink_id(int drink_id) {

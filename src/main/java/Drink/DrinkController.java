@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import DrinkDetail.DrinkBase;
 import DrinkDetail.DrinkDetailDAO;
@@ -133,6 +134,7 @@ public class DrinkController extends HttpServlet {
 	
 	public String getDetailDrink(HttpServletRequest request) throws Exception {
 		int drink_id = Integer.parseInt(request.getParameter("drink_id"));
+		HttpSession session = request.getSession();
 		List <Ingredient> ingredientList = null;
 		
 		//base
@@ -147,6 +149,7 @@ public class DrinkController extends HttpServlet {
 		// drink
 		try {
 			Drinks d = ddao.getDrink(drink_id);
+			session.setAttribute("drinkId", drink_id);
 			request.setAttribute("drink", d);
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -174,10 +177,30 @@ public class DrinkController extends HttpServlet {
 			ctx.log("드링크 정보 : 드링크 정보를 가져오는 과정에서 문제 발생");
 			request.setAttribute("error", "드링크 정보를 정상적으로 가져오지 못했습니다");
 		}
-		
-		
-		
+
 		return "DetailDrink.jsp";
+	}
+	
+	public String getPlus(HttpServletRequest request) throws SQLException {
+		String getDrinkId = request.getParameter("drinkId");
+		String getUserId = request.getParameter("userId");
+		int setDrinkId = Integer.parseInt(getDrinkId);
+		int setUserId = Integer.parseInt(getUserId);
+		System.out.println("컨트롤러드링크아이디"+setDrinkId + "\n" +setUserId );
+		
+		DrinkDetailDAO ddo = new DrinkDetailDAO();
+		ddo.getPlus(setUserId, setDrinkId);
+		
+		List<Base> list = null;
+		try {
+			list=dao.getBaseAll();
+			request.setAttribute("baseList", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("베이스 목록 과정에서 문제 발생!!");
+			request.setAttribute("error", "베이스 목록이 정상적으로 처리되지 않았습니다!!");
+		}
+		return "main.jsp";
 	}
 	
 }

@@ -1,9 +1,31 @@
 body{
 	animation: fadein 2s;
-	 background-color: #c7b0c2;
+	 background-color: #230312;
 	 font-family: "Courgette", cursive;
 }
+.container #plus {
+  width: 150px;
+  height: 80px;
+  margin-bottom: 30px;
+  background-color: #c7b0c2;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  font-size: 30px;
+}
+.container #plus:hover {
+  font-size: 35px;
+  width: 170px;
+  height: 90px;
+}
 
+#btn0cs{
+	width :150px;
+	height : 60px;
+	margin-bottom: 20px;
+	background-color: green;
+	font-size:24px;
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}
 .container {
   position: relative;
   width: 1100px;
@@ -45,6 +67,7 @@ body{
   height: 260px;
   width: 260px;
 }
+
 .container .drink .title {
   display: flex;
   align-items: center;

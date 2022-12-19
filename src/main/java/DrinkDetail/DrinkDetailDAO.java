@@ -75,7 +75,6 @@ public class DrinkDetailDAO {
 		List<Ingredient> IngredientList = new ArrayList<>();
 		String sql = "select INGREDIENT_ID from DRINKDETAIL where DRINK_ID =?";
 		int temp_id;
-		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, drink_id);
 		ResultSet rs = pstmt.executeQuery();
@@ -139,10 +138,22 @@ public class DrinkDetailDAO {
 		
 	}
 	
+	public void getPlus(int user_id , int drink_id) throws SQLException {
+		System.out.println("드링크 인포확인");
+		Connection conn = DatabaseUtil.open();
+		String sql = "insert into LIKES(user_id , drink_id) values (?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, user_id);
+		pstmt.setInt(2, drink_id);
+		pstmt.execute();
+		System.out.println("확인됨");
+	}
+	
+	
 	public static void main(String[] args) throws Exception  {
 		DrinkDetailDAO da = new DrinkDetailDAO();
 		
-		da. getDrinkInfo(1);
+		da.getPlus(1,2);
 	}
 	
 	

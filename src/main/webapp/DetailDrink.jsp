@@ -4,7 +4,8 @@
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ page import = "DrinkDetail.DrinkDetailDAO" %>
+<%@ page import = "DrinkDetail.Drinks" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,25 @@
 </head>
 <body>
 <%@ include file="../navbar.jsp"%>
+	<%
+	int drinkId = 1;
+	if (session.getAttribute("drinkId") != null) {
+		drinkId = (Integer) session.getAttribute("drinkId");
+	}
+	%>
+	
 	 <div class="container">
+	 	
+	 	<form action="/MyLittleCocktail/drinkController?action=getPlus" method="post">
+	 		<input type="hidden"" class="colsas" value=${drinkId}
+							name="drinkId" maxlength="20" required>
+			<input type="hidden" class="colsas" value=${userId}
+							name="userId" maxlength="20" required>
+			<input type="submit" id="btn0cs"
+						value="찜하기">							
+	 	</form>
+	 	
+	 	 
         <div class="drink">
             <div class="imgBx">
                 <img class="container__drink__img" src="${drink.image}">
