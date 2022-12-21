@@ -106,4 +106,22 @@ public class AdminRecipeDAO {
 
 	}
 
+	public int insertDetailInfo(String content, String link, int drinkId) throws Exception{
+		Connection conn = DatabaseUtil.open();
+		String sql = "insert into DRINKINFO(DRINKINFO_CONTENT,DRINKINFO_URL, DRINK_ID) values(?,?, ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (conn; pstmt) {
+
+			pstmt.setString(1, content);
+			pstmt.setString(2, link);
+			pstmt.setInt(3, drinkId);
+			return pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터 베이스 오류
+
+	}
+
 }

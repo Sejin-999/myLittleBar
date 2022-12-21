@@ -94,11 +94,11 @@ public class AdminRecipeController extends HttpServlet {
 			Part part = request.getPart("file");
 			String fileName = getFilename(part);
 			if (fileName != null && !fileName.isEmpty()) {
-				part.write(Constants.path + "/base/" + fileName);
+				part.write(Constants.path + "/base/" + request.getParameter("title"));
 			}
 			BeanUtils.populate(base, request.getParameterMap());
 
-			base.setImage("image/base/" + fileName);
+			base.setImage("image/base/" + request.getParameter("title"));
 			adminRecipDAO.insertBase(base);
 
 		} catch (Exception e) {
@@ -118,11 +118,11 @@ public class AdminRecipeController extends HttpServlet {
 			Part part = request.getPart("file");
 			String fileName = getFilename(part);
 			if (fileName != null && !fileName.isEmpty()) {
-				part.write(Constants.path + "/ingredient/" + fileName);
+				part.write(Constants.path + "/ingredient/" + request.getParameter("title"));
 			}
 			BeanUtils.populate(ingredient, request.getParameterMap());
 
-			ingredient.setImage("image/ingredient/" + fileName);
+			ingredient.setImage("image/ingredient/" + request.getParameter("title"));
 			adminRecipDAO.insertIngredient(ingredient);
 
 		} catch (Exception e) {
@@ -195,14 +195,14 @@ public class AdminRecipeController extends HttpServlet {
 
 			drink.setBase_id(Integer.parseInt(request.getParameter("base_type")));
 			drink.setName(request.getParameter("title"));
-			drink.setImage(request.getParameter("file"));
+
 			try {
 				Part part = request.getPart("file");
 				String fileName = getFilename(part);
 				if (fileName != null && !fileName.isEmpty()) {
-					part.write(Constants.path + "/base/" + fileName);
+					part.write(Constants.path + "/drink/" + request.getParameter("title"));
 				}
-				drink.setImage("image/drink/" + fileName);
+				drink.setImage("image/drink/" + request.getParameter("title"));
 				drink_id = adminRecipDAO.insertCocktail(drink);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -212,7 +212,16 @@ public class AdminRecipeController extends HttpServlet {
 			}
 
 		}
+		
+		try {
+			adminRecipDAO.insertDetailInfo(request.getParameter("detailContent"),request.getParameter("detailLink"),drink_id);
 
+		} catch (Exception e) {
+			request.setAttribute("error", "재료 업로드 중 오류가 발생하였습니다.");
+			return "./adminRecipeController?action=defaultView";
+		}
+		
+		
 		for (String item : ingredients) {
 
 			try {

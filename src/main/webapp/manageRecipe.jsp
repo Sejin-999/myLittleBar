@@ -187,7 +187,19 @@ div{
 									type="text" name="title" class="form-control"> <label
 									class="form-label fs-5 text-dark">image</label> <input
 									type="file" name="file" accept="image/*" class="form-control ">
-								<br> <label class="fs-5 text-dark">Select Base</label> <select
+									<br> 
+									<label
+									class="form-label fs-5 text-dark">DetailInfo</label>
+									<textarea name="detailContent" class="form-control" maxlength="2048" style="height:120px" required></textarea>
+					
+									<label
+									class="form-label fs-5 text-dark">DetailLink</label>
+									<input type="text" name="detailLink" class="form-control" required>
+								
+								
+								
+								
+								<label class="fs-5 text-dark">Select Base</label> <select
 									name="base_type" class="form-control">
 
 									<option value="0">--</option>
