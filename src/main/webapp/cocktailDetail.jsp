@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My Little Bar _ More Information</title>
+<title>MyLittleBar</title>
 </head>
 <body>
 	<%@ include file="../navbar.jsp"%>

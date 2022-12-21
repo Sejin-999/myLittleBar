@@ -14,7 +14,7 @@
 <script src="./resources/js/jquery-3.5.1.min.js"></script>
 <script src="./resources/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="common.css">
-<title>SearchList</title>
+<title>MyLittleBar</title>
 
 </head>
 <body style="background-color: #230312;">

@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="common.css">
 <script src="./resources/js/jquery-3.5.1.min.js"></script>
 <script src="./resources/js/bootstrap.bundle.min.js"></script>
-<title>SearchList</title>
+<title>MyLittleBar</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
