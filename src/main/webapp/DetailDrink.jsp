@@ -32,7 +32,7 @@
 			<input type="hidden" class="colsas" value=${userId}
 							name="userId" maxlength="20" required>
 			<input type="submit" id="btn0cs"
-						value="찜하기">							
+						value="LIKE">							
 	 	</form>
 	 	
 	 	 
@@ -45,7 +45,7 @@
             </div>
             <div class="content">
             	<span>${info.getDrinkInfo_content()}</span>
-            	<p><a href="${info.getDrinkInfo_URL()}"  target='_blank'>자세히 보기</a></p>
+            	<p><a href="${info.getDrinkInfo_URL()}"  target='_blank'>See Details</a></p>
             </div>
         </div>
          
