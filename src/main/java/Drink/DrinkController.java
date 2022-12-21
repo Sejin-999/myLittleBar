@@ -3,6 +3,7 @@ package Drink;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -112,23 +113,30 @@ public class DrinkController extends HttpServlet {
 	
 	
 	public String getCartAll(HttpServletRequest request) throws Exception {
-		int user_id=Integer.parseInt(request.getParameter("user_id"));
-		List<Cart> cartlist=null;
-		try{
-			cartlist=dao.getCart(user_id);
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}		
-		request.setAttribute("cartlist", cartlist);
-		
+		int user_id = Integer.parseInt(request.getParameter("user_id"));
+		List<Cart> usercart = new ArrayList<>();
+		List<Drinks> cartlist=new ArrayList<>();
 		try {
-			Drinks d=dao.getDrink(3);
-			request.setAttribute("drink", d);
-		} catch (Exception e) {
+			usercart = dao.getCart(user_id);
+			request.setAttribute("usercart", usercart);
+		} catch (SQLException e) {
 			e.printStackTrace();
-			ctx.log("베이스를 가져오는 과정에서 문제 발생");
-			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
 		}
+			
+		for(int i=0;i<usercart.size();i++) {
+			int drink_id=usercart.get(i).getDrink_id();
+			try {
+				Drinks d=dao.getDrink(drink_id);
+				cartlist.add(d);			
+			} catch (Exception e) {
+				e.printStackTrace();
+				ctx.log("찜 목록을 가져오는 과정에서 문제 발생");
+				request.setAttribute("error", "찜 목록을 정상적으로 가져오지 못했습니다");
+			}
+		}
+		request.setAttribute("cartlist", cartlist);
+	
+		
 		return "cartlist.jsp";
 	}
 	
