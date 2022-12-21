@@ -3,7 +3,6 @@ package Drink;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,165 +13,194 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
 
-import org.apache.commons.beanutils.BeanUtils;
+import DrinkDetail.DrinkBase;
+import DrinkDetail.DrinkDetailDAO;
+import DrinkDetail.DrinkInfo;
+import DrinkDetail.Ingredient;
 
 @WebServlet("/drinkController")
 public class DrinkController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DrinkDAO dao;
+	private DrinkDetailDAO ddao;
 	private ServletContext ctx;
-
-
-	private final String START_PAGE = "./main.jsp";
-
+	
+	private final String START_PAGE="./main.jsp";
+    
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-
-		dao = new DrinkDAO();
-		ctx = getServletContext();
+		
+		ddao = new DrinkDetailDAO();
+		dao=new DrinkDAO();
+		ctx=getServletContext();
 	}
 
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String action = request.getParameter("action");
-		dao = new DrinkDAO();
-
+		String action=request.getParameter("action");
+		dao=new DrinkDAO();
+		
 		Method m;
-		String view = null;
-
-		if (action == null) {
-			action = "listBase";
+		String view=null;
+		
+		if (action==null) {
+			action="listBase";
 		}
-
+		
 		try {
-			m = this.getClass().getMethod(action, HttpServletRequest.class);
-
-			view = (String) m.invoke(this, request);
-		} catch (NoSuchMethodException e) {
+			m=this.getClass().getMethod(action, HttpServletRequest.class);
+			
+			view=(String)m.invoke(this, request);
+		}catch (NoSuchMethodException e){
 			e.printStackTrace();
 			ctx.log("요청 action 없음!!");
 			request.setAttribute("error", "action 파라미터가 잘못 되었습니다!!");
-			view = START_PAGE;
-		} catch (Exception e) {
+			view=START_PAGE;
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		if (view.startsWith("redirect:/")) {
-			String rview = view.substring("redirect:/".length());
+		
+		if(view.startsWith("redirect:/")) {
+			String rview=view.substring("redirect:/".length());
 			response.sendRedirect(rview);
-		} else {
+		}else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 		}
 	}
-
+	
 	public String listBase(HttpServletRequest request) throws Exception {
 		List<Base> list = null;
 		try {
-			list = dao.getBaseAll();
+			list=dao.getBaseAll();
 			request.setAttribute("baseList", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 			ctx.log("베이스 목록 과정에서 문제 발생!!");
 			request.setAttribute("error", "베이스 목록이 정상적으로 처리되지 않았습니다!!");
 		}
-
+		
 		return "main.jsp";
 	}
-
+	
 	public String getSearchList(HttpServletRequest request) throws Exception {
-		int base_id = Integer.parseInt(request.getParameter("base_id"));
+		int base_id=Integer.parseInt(request.getParameter("base_id"));
 		List<Drinks> drinkList = null;
 		try {
-			drinkList = dao.getDrinkAll(base_id);
-			System.out.println(drinkList.get(0).getImage());
+			drinkList=dao.getDrinkAll(base_id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		request.setAttribute("drinklist", drinkList);
-
+		
 		try {
-			Base b = dao.getBase(base_id);
+			Base b=dao.getBase(base_id);
 			request.setAttribute("base", b);
-		} catch (SQLException e) {
+		}catch(SQLException e) {
 			e.printStackTrace();
 			ctx.log("베이스를 가져오는 과정에서 문제 발생");
 			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
 		}
-
+		
+		
 		return "searchList.jsp";
 	}
-
-	public String getSearchDrink(HttpServletRequest request) throws Exception {
-		int drink_id = Integer.parseInt(request.getParameter("drink_id"));
-//		List<Drinks> drinkList = null;
-//		try {
-//			drinkList = dao.getDrinkAll(base_id);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		request.setAttribute("drinklist", drinkList);
-
-		try {
-			Drinks d = dao.getDrink(drink_id);
-			request.setAttribute("drink", d);
-		} catch (SQLException e) {
+	
+	
+	public String getCartAll(HttpServletRequest request) throws Exception {
+		int user_id=Integer.parseInt(request.getParameter("user_id"));
+		List<Cart> cartlist=null;
+		try{
+			cartlist=dao.getCart(user_id);
+		}catch(SQLException e) {
 			e.printStackTrace();
-			ctx.log("술을 가져오는 과정에서 문제 발생");
-			request.setAttribute("error", "술을 정상적으로 가져오지 못했습니다");
-		}
-
-		return "drinkPagedel.jsp";
-	}
-
-	// 찜 목록에 추가하기
-	public String addCart(HttpServletRequest request) {
-		Cart c = new Cart();
+		}		
+		request.setAttribute("cartlist", cartlist);
+		
 		try {
-			BeanUtils.populate(c, request.getParameterMap());
-			dao.addCart(c);
+			Drinks d=dao.getDrink(3);
+			request.setAttribute("drink", d);
 		} catch (Exception e) {
 			e.printStackTrace();
-			ctx.log("찜 목록 추가과정에서 문제 발생!!");
-			request.setAttribute("error", "찜목록에 정상적으로 등록되지 않았습니다!!");
+			ctx.log("베이스를 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
 		}
-		return "redirect:/DrinkController?action=listBase";
-	
-	}
-
-	// 찜 목록 리스트 가져오기
-	public String getCartAll(HttpServletRequest request) throws Exception {
-		int user_id = Integer.parseInt(request.getParameter("user_id"));
-		List<Cart> usercart = new ArrayList<>();
-		List<Drinks> cartlist=new ArrayList<>();
-		try {
-			usercart = dao.getCart(user_id);
-			request.setAttribute("usercart", usercart);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-			
-		for(int i=0;i<usercart.size();i++) {
-			int drink_id=usercart.get(i).getDrink_id();
-			try {
-				Drinks d=dao.getDrink(drink_id);
-				cartlist.add(d);			
-			} catch (Exception e) {
-				e.printStackTrace();
-				ctx.log("찜 목록을 가져오는 과정에서 문제 발생");
-				request.setAttribute("error", "찜 목록을 정상적으로 가져오지 못했습니다");
-			}
-		}
-		request.setAttribute("cartlist", cartlist);
-	
-		
 		return "cartlist.jsp";
 	}
+	
+	public String getDetailDrink(HttpServletRequest request) throws Exception {
+		int drink_id = Integer.parseInt(request.getParameter("drink_id"));
+		HttpSession session = request.getSession();
+		List <Ingredient> ingredientList = null;
+		
+		//base
+		try {
+			DrinkBase b=ddao.getBase(drink_id);
+			request.setAttribute("base", b);
+		}catch(SQLException e) {
+			e.printStackTrace();
+			ctx.log("디테일 드링크 : 베이스를 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "베이스를 정상적으로 가져오지 못했습니다");
+		}
+		// drink
+		try {
+			Drinks d = ddao.getDrink(drink_id);
+			session.setAttribute("drinkId", drink_id);
+			request.setAttribute("drink", d);
+		}catch(SQLException e) {
+			e.printStackTrace();
+			ctx.log("디테일 드링크 : 칵테일을 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "칵테일을 정상적으로 가져오지 못했습니다");
+		}
+		// ingredient
+		try {
+			ingredientList = ddao.getIngredient(drink_id);
+			request.setAttribute("ingredientList", ingredientList);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ctx.log("디테일 드링크 : 재료리스트를 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "재료리스트를 정상적으로 가져오지 못했습니다");
+		}
+		//drinkInfo
+		try {
+			DrinkInfo dinfo = ddao.getDrinkInfo(drink_id);
+			System.out.println("컨트롤러 확인 :" +	dinfo.getDrinkInfo_content());
+			request.setAttribute("info", dinfo);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ctx.log("드링크 정보 : 드링크 정보를 가져오는 과정에서 문제 발생");
+			request.setAttribute("error", "드링크 정보를 정상적으로 가져오지 못했습니다");
+		}
 
-
+		return "DetailDrink.jsp";
+	}
+	
+	public String getPlus(HttpServletRequest request) throws SQLException {
+		String getDrinkId = request.getParameter("drinkId");
+		String getUserId = request.getParameter("userId");
+		int setDrinkId = Integer.parseInt(getDrinkId);
+		int setUserId = Integer.parseInt(getUserId);
+		System.out.println("컨트롤러드링크아이디"+setDrinkId + "\n" +setUserId );
+		
+		DrinkDetailDAO ddo = new DrinkDetailDAO();
+		ddo.getPlus(setUserId, setDrinkId);
+		
+		List<Base> list = null;
+		try {
+			list=dao.getBaseAll();
+			request.setAttribute("baseList", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("베이스 목록 과정에서 문제 발생!!");
+			request.setAttribute("error", "베이스 목록이 정상적으로 처리되지 않았습니다!!");
+		}
+		return "main.jsp";
+	}
+	
 }

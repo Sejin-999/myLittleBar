@@ -63,7 +63,7 @@ figcaption{
 												</c:if>
 												<td
 													style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
-													<a class="a" href="drinkController?action=getSearchDrink&drink_id=${drinks.drink_id}">
+													<a class="a" href="drinkController?action=getDetailDrink&drink_id=${drinks.drink_id}">
 														<figure>
 															<img src="${drinks.image}" style="width: 100%">
 															<figcaption
