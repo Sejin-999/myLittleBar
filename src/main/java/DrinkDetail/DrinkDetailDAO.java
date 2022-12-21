@@ -13,8 +13,8 @@ import Util.DatabaseUtil;
 
 public class DrinkDetailDAO {
 
-	final String JDBC_DRIVER = "org.h2.Driver";
-	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/tukoreadb";
+	final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+	final String JDBC_URL = "jdbc:mysql://localhost:3306/myLittleCock";;
 	String setbase_id;
 	
 	
