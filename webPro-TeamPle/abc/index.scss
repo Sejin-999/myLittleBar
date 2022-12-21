@@ -1,0 +1,104 @@
+*{
+    margin : 0;
+    padding : 0;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #c7b0c2;
+    font-family: 'Courgette', cursive;
+}
+
+.container{
+    position: relative;
+    width: 1100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 30px;
+    #plus{
+        width: 150px;
+        height: 80px;
+        margin-bottom: 30px;
+        background-color: #c7b0c2;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+        font-size: 30px;
+        
+    }
+    #plus:hover{
+        font-size: 35px;
+        width: 170px;
+        height: 90px;
+    }
+    .content-box{
+        display: flex;
+        margin-top: 200px;
+   
+        .drink{
+            margin-left: 2rem;
+        }
+    }
+    .drink:hover{
+        height: 600px;
+        .content{
+            display: flex;
+            transition: 1s ease-in-out;
+        }
+    }
+    .drink{
+        background-color: white;
+        position: relative;
+        max-height: 700px;
+        height: 350px;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        padding: 10px;
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+        border-radius: 10px;
+        transition: 0.6s ease-in-out;
+        .imgbx{
+            position: relative;
+            height: 260px;
+            width: 260px;
+
+        }
+        .title{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 5px;
+            font-size: 28px;
+        }
+        .content{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 1rem;
+            width: 300px;
+            display: none;
+            font-family: 'Noto Serif KR', serif;
+            font-weight: 500;
+            font-size: 20px;
+            padding-left: 15px;
+            padding-right: 15px;
+            p{
+                margin-top: 15px;
+                a{
+                    text-decoration: none;
+                    color: rgb(103, 187, 103);
+                }
+            }
+        }
+    }
+}
+.container__drink__img{
+    width: 300px;
+    height: 350px;
+    object-fit: cover;
+
+}

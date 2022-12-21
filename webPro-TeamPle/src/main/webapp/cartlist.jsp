@@ -13,13 +13,41 @@
 	crossorigin="anonymous"></script> -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+<link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
 <link rel="stylesheet" href="common.css">
 <title>likeList</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
+h1{
+	font-family: "Courgette", sans-serif;
+}
+figcaption{
+	font-family: "Signika", sans-serif;
+}
 
+ .image {
+	width: 250px;
+	height: 250px;
+	margin-top: 1.5rem;
+	margin-bottom: 3rem;
+} 
+
+.imageSize {
+	width: 15rem;
+	height:15rem;
+	object-fit: cover;
+}
+
+.a:hover {
+	text-decoration: none;
+}
+</style>
 </head>
 <body style="background-color: #230312;">
-	<div id='wrapper'>
-		<%@ include file="../navbar.jsp"%>
+	<%@ include file="../navbar.jsp"%>
+	<article>
 		<div class="container" style="color: white;">
 			<table style="width: 100%">
 				<tbody>
@@ -42,10 +70,11 @@
 												</c:if>
 												<td
 													style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
-													<a href="#">
-														<figure>
-															<img src="${drink.image}" style="width: 100%">
-															<figcaption>${drink.name}</figcaption>
+													<a class="a" href="#">
+														<figure class="image">
+															<img class="imageSize" src="${cart.image}">
+															<figcaption
+																style="text-align: center; color: #FFFFFF; text-decoration: none; font-size: 1.5rem;">${cart.name}</figcaption>
 														</figure>
 												</a>
 												</td>
@@ -69,12 +98,13 @@
 					</tr>
 				</tbody>
 			</table>
-
 		</div>
-	</div>
-	<footer style=''>
+	</article>
+
+	<footer>
 		<%@ include file="../footer.jsp"%>
 	</footer>
+
 </body>
 
 </html>

@@ -28,7 +28,7 @@ public class UserController extends HttpServlet {
 	private UserDAO dao;
 	private ServletContext ctx;
 // 웹 리소스 기본 경로 지정
-	private final String START_PAGE = "./main.jsp";
+	private final String START_PAGE = "main.jsp";
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -81,15 +81,14 @@ public class UserController extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String rePassword = request.getParameter("rePassword");
-		
-		if(!password.equals(rePassword)) {
-			request.setAttribute("error","재 입력된 비밀번호가 일치하지 않습니다. ");
+
+		if (!password.equals(rePassword)) {
+			request.setAttribute("error", "재 입력된 비밀번호가 일치하지 않습니다. ");
 			return "./signUp.jsp";
 		}
-		
 
 		try {
-			if(dao.checkDuplicate(email)) {
+			if (dao.checkDuplicate(email)) {
 				request.setAttribute("error", "이미 가입된 아이디입니다.");
 				return "./signUp.jsp";
 			}
@@ -103,30 +102,34 @@ public class UserController extends HttpServlet {
 		}
 		return "redirect:/userController?action=defaultView"; // “redirect:/” 이후에 오는 경로 부분에서 “프로젝트명” 다음에 오는 경로만 작성
 	}
-	
+
 	public String signIn(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Users user = new Users();
-		
+
 		try {
-			
+
 			BeanUtils.populate(user, request.getParameterMap());
-			
-			if(!dao.checkDuplicate(user.getEmail())) {
+
+			if (!dao.checkDuplicate(user.getEmail())) {
 				request.setAttribute("error", "가입되지 않은 이메일입니다.");
 				return "./signIn.jsp";
 			}
-			
-			if(dao.signIn(user) == 2) {
-			     session.setAttribute("userEmail",user.getEmail());
-			     session.setAttribute("isAdmin", true);
-			     return "./main.jsp";
+			SignInDTO result = dao.signIn(user);
+			if (result.getUser_id() != -1) { //비밀번호가 일치한다면
+				if (result.getIs_admin() == true) { //관리자라면
+					session.setAttribute("userEmail", user.getEmail());
+					session.setAttribute("isAdmin", true);
+					session.setAttribute("userId", result.getUser_id());
+					return "drinkController?action=listBase";
+				} else {
+					session.setAttribute("userEmail", user.getEmail());
+					session.setAttribute("userId", result.getUser_id());
+					return "drinkController?action=listBase";
+				}
+
 			}
-			
-			if(dao.signIn(user) == 1) {
-			     session.setAttribute("userEmail",user.getEmail());
-			     return "./main.jsp";
-			}
+
 			else {
 				request.setAttribute("error", "비밀번호가 일치하지 않습니다.");
 				return "./signIn.jsp";
@@ -136,83 +139,43 @@ public class UserController extends HttpServlet {
 			request.setAttribute("error", "로그인 중 오류가 발생하였습니다.");
 			return "./signIn.jsp";
 		}
-		
+
 	}
-	
+
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-	    session.invalidate();
-     return "./main.jsp";
-			
-		
+		session.invalidate();
+		return "drinkController?action=listBase";
 	}
-	
-//	public String updateNews(HttpServletRequest request) {
-//		
-//		News n = new News();
-//		try {
-//			// 이미지 파일 저장
-//			Part part = request.getPart("file");
-//			String fileName = getFilename(part);
-//			if (fileName != null && !fileName.isEmpty()) {
-//				part.write(fileName);
-//			}
-//			// 입력값을 News 객체로 매핑
-//			BeanUtils.populate(n, request.getParameterMap());
-//			// 이미지 파일 이름을 News 객체에도 저장
-//			n.setImg("/img/" + fileName);
-//
-//			dao.updateNews(n);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			ctx.log("뉴스 수정 과정에서 문제 발생!!");
-//			request.setAttribute("error", "뉴스가 정상적으로 업데이트되지 않았습니다!!");
-//			return listNews(request);
-//		}
-//		return "redirect:/news.nhn?action=listNews"; // “redirect:/” 이후에 오는 경로 부분에서 “프로젝트명” 다음에 오는 경로만 작성
-//	}
-//
+
+	public String manageUser(HttpServletRequest request) { // 유저 관리자 페이지
+		List<Users> list;
+		try {
+			list = dao.getUserAll();
+			request.setAttribute("userList", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("유저 관리자 페이지 오류발생");
+		}
+
+		return "./manageUser.jsp"; //
+	}
+
+	public String deleteUser(HttpServletRequest request) {
+		int user_id = Integer.parseInt(request.getParameter("user_id"));
+		try {
+			dao.deleteUser(user_id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			ctx.log("유저 삭제 중 오류 발생");
+			request.setAttribute("error", "유저 삭제 중 오류가 발생하였습니다.");
+			return "/userController?action=manageUser";
+		}
+		return "redirect:/userController?action=manageUser";
+	}
+
 	public String defaultView(HttpServletRequest request) {
 		return "./signIn.jsp";
 	}
-//
-//	public String getNews(HttpServletRequest request) {
-//		int aid = Integer.parseInt(request.getParameter("aid"));
-//		try {
-//			News n = dao.getNews(aid);
-//			request.setAttribute("news", n);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			ctx.log("뉴스를 가져오는 과정에서 문제 발생!!");
-//			request.setAttribute("error", "뉴스를 정상적으로 가져오지 못했습니다!!");
-//		}
-//		return "ch10/newsView.jsp";
-//	}
-//
-//	public String deleteNews(HttpServletRequest request) {
-//		int aid = Integer.parseInt(request.getParameter("aid"));
-//		try {
-//			dao.delNews(aid);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			ctx.log("뉴스 삭제 과정에서 문제 발생!!");
-//			request.setAttribute("error", "뉴스가 정상적으로 삭제되지 않았습니다!!");
-//			return listNews(request);
-//		}
-//		return "redirect:/news.nhn?action=listNews";
-//	}
-//
-//	/// multipart 헤더에서 파일이름 추출
-//	private String getFilename(Part part) {
-//		String fileName = null;
-//		// 파일이름이 들어있는 헤더 영역을 가지고 옴
-//		String header = part.getHeader("content-disposition"); // content-disposition //: response의 컨텐츠 정보 //
-//		// part.getHeader -> form-data; name="img"; filename="사진5.jpg"
-//		System.out.println("Header => " + header);
-//		// 파일 이름이 들어있는 속성 부분의 시작위치를 가져와 쌍따옴표 사이의 값 부분만 가지고옴
-//		int start = header.indexOf("filename=");
-//		fileName = header.substring(start + 10, header.length() - 1);
-//		ctx.log("파일명:" + fileName);
-//		return fileName;
-//	}
+
 }

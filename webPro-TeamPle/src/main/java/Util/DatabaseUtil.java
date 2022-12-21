@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DatabaseUtil {
-	
-	
-	
 	public static Connection open() {
 		
 		final String JDBC_DRIVER = "org.h2.Driver";
@@ -22,5 +19,3 @@ public class DatabaseUtil {
 		return conn;
 	}
 }
-
-

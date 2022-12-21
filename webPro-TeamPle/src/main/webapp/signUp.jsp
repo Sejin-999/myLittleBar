@@ -16,6 +16,15 @@
 <script src="./resources/js/jquery-3.5.1.min.js"></script>
 <script src="./resources/js/bootstrap.bundle.min.js"></script>
 <title>SearchList</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
+h3{
+	font-family: "Courgette", sans-serif;
+}
+div{
+	font-family: "Courgette", sans-serif;
+}
+</style>
 </head>
 <body style="background-color: #230312;">
 	<%@ include file="../navbar.jsp"%>
@@ -25,25 +34,25 @@
 			<div class="jumbotron mt-5 mh-100">
 				<form method="post"
 					action="/MyLittleCocktail/userController?action=signUp">
-					<h3 style="text-align: center;">회원가입</h3>
+					<h3 class="text-dark" style="text-align: center;">Sign up</h3>
 					<div class="form-gruop mt-5">
-						<input type="text" class="form-control" placeholder="아이디"
+						<input type="text" class="form-control" placeholder="id"
 							name="email" maxlength="20" required>
 					</div>
 					<div class="form-gruop mt-2">
-						<input type="password" class="form-control" placeholder="비밀번호"
+						<input type="password" class="form-control" placeholder="Password"
 							name="password" maxlength="20" required>
 					</div>
 					<div class="form-gruop mt-2">
-						<input type="password" class="form-control" placeholder="비밀번호 재입력"
+						<input type="password" class="form-control" placeholder="Re-enter Password"
 							name="rePassword" maxlength="20" required>
 					</div>
 					<div class="form-gruop mt-2">
-						<input type="text" class="form-control" placeholder="성명"
+						<input type="text" class="form-control" placeholder="Name"
 							name="name" maxlength="20" required>
 					</div>
-					<input type="submit" class="btn btn-secondary form-control mt-2"
-						value="회원가입">
+					<input type="submit" class="btn btn-warning form-control mt-2"
+						value="Sign up">
 				</form>
 
 

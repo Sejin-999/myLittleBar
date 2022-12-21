@@ -75,7 +75,6 @@ public class DrinkDetailDAO {
 		List<Ingredient> IngredientList = new ArrayList<>();
 		String sql = "select INGREDIENT_ID from DRINKDETAIL where DRINK_ID =?";
 		int temp_id;
-		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, drink_id);
 		ResultSet rs = pstmt.executeQuery();
@@ -115,10 +114,46 @@ public class DrinkDetailDAO {
 		}
 	}
 	
+	public DrinkInfo getDrinkInfo (int drink_id) throws SQLException {
+		System.out.println("드링크 인포확인");
+		Connection conn = DatabaseUtil.open();
+		DrinkInfo dinfo = new DrinkInfo();
+		String findInfoSQL = "select DRINKINFO_CONTENT,DRINKINFO_URL from DRINKINFO  where drink_id =?";
+		PreparedStatement pstmt = conn.prepareStatement(findInfoSQL);
+		pstmt.setInt(1, drink_id);
+		ResultSet rs = pstmt.executeQuery();
+		if(rs.next()) {
+			dinfo.setDrinkInfo_content(rs.getString("DRINKINFO_CONTENT"));
+			dinfo.setDrinkInfo_URL(rs.getString("DRINKINFO_URL"));
+			
+			System.out.println("드링크 컨텐트:" + dinfo.getDrinkInfo_content() +"\n드링크 url :"+dinfo
+					.getDrinkInfo_URL());
+			
+			return dinfo;
+			
+		}
+		
+		return null; //에러
+		
+		
+	}
+	
+	public void getPlus(int user_id , int drink_id) throws SQLException {
+		System.out.println("드링크 인포확인");
+		Connection conn = DatabaseUtil.open();
+		String sql = "insert into LIKES(user_id , drink_id) values (?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, user_id);
+		pstmt.setInt(2, drink_id);
+		pstmt.execute();
+		System.out.println("확인됨");
+	}
+	
+	
 	public static void main(String[] args) throws Exception  {
 		DrinkDetailDAO da = new DrinkDetailDAO();
 		
-		da.getIngredient(1);
+		da.getPlus(1,2);
 	}
 	
 	

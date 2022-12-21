@@ -16,26 +16,37 @@
 <script src="./resources/js/jquery-3.5.1.min.js"></script>
 <script src="./resources/js/bootstrap.bundle.min.js"></script>
 <title>SearchList</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
+h3{
+	font-family: "Courgette", sans-serif;
+}
+div{
+	font-family: "Courgette", sans-serif;
+	
+}
+
+</style>
 </head>
 <body style="background-color: #230312;" class="min-vh-100">
 	<%@ include file="../navbar.jsp"%>
 
 	<article>
-		<div class="container" style="color: white;">
+		<div class="container" style=lcolor:white;>
 			<div class="jumbotron mt-5 mh-100">
 				<form method="post"
 					action="/MyLittleCocktail/userController?action=signIn">
-					<h3 style="text-align: center;">로그인</h3>
+					<h3 class="text-dark" style="text-align: center;">Sign in</h3>
 					<div class="form-gruop mt-5">
-						<input type="text" class="form-control" placeholder="아이디"
+						<input type="text" class="form-control" placeholder="id"
 							name="email" maxlength="20" required>
 					</div>
 					<div class="form-gruop mt-2">
-						<input type="password" class="form-control" placeholder="비밀번호"
+						<input type="password" class="form-control" placeholder="Password"
 							name="password" maxlength="20" required>
 					</div>
-					<input type="submit" class="btn btn-secondary form-control mt-2"
-						value="로그인">
+					<input type="submit" class="btn btn-warning form-control mt-2"
+						value="Sign In">
 				</form>
 				<c:if test="${error != null}">
 					<div class="alert alert-danger text-center mt-2" role="alert">${error}</div>
