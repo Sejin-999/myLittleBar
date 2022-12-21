@@ -11,8 +11,8 @@ import Util.DatabaseUtil;
 
 public class DrinkDAO {
 
-	final String JDBC_DRIVER = "org.h2.Driver";
-	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/tukoreadb";
+	final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+	final String JDBC_URL = "jdbc:mysql://localhost:3306/myLittleCock";
 
 	//베이스 목록 전체 가져오기
 	public List<Base> getBaseAll() throws Exception{
