@@ -17,12 +17,38 @@
 <script src="./resources/js/bootstrap.bundle.min.js"></script>
 <title>SearchList</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap');
-h1{font-family: "Courgette", sans-serif;
-color:#FF9614;}
-figcaption{
+@import
+	url('https://fonts.googleapis.com/css2?family=Courgette&family=Ruda:wght@500&family=Signika:wght@500&display=swap')
+	;
+
+h1 {
+	font-family: "Courgette", sans-serif;
+	color: #FF9614;
+}
+
+figcaption {
 	font-family: "Signika", sans-serif;
 }
+
+.image {
+	width: 200px;
+	height: 200px;
+	margin-top: 1.5rem;
+	margin-bottom: 5rem;
+}
+
+.baseimage{
+	width: 400px;
+	height: 400px;
+	margin-top: 1.5rem;
+}
+
+.imageSize {
+	width: 15rem;
+	height: 15rem;
+	object-fit: cover;
+}
+
 .a:hover {
 	text-decoration: none;
 }
@@ -45,7 +71,7 @@ figcaption{
 					</tr>
 					<tr>
 						<td style="width: 35%; vertical-align: top; padding-right: 5%;">
-							<img src="${base.image}" style="width: 100%">
+							<img src="${base.image}" class="baseimage">
 						</td>
 
 
@@ -63,9 +89,11 @@ figcaption{
 												</c:if>
 												<td
 													style="vertical-alight: top; padding-right: 2.5%; padding-left: 2.5%;">
-													<a class="a" href="drinkController?action=getDetailDrink&drink_id=${drinks.drink_id}">
-														<figure>
-															<img src="${drinks.image}" style="width: 100%">
+													<a class="a"
+													href="drinkController?action=getDetailDrink&drink_id=${drinks.drink_id}">
+														<figure class="image">
+															<img class="imageSize" src="${drinks.image}"
+																style="width: 100%">
 															<figcaption
 																style="text-align: center; color: #FFFFFF; text-decoration: none; font-size: 2rem;">${drinks.name}</figcaption>
 														</figure>
