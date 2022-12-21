@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style ="background-color:#230312;">
 <%@ include file="../navbar.jsp"%>
 	<%
 	int drinkId = 1;
