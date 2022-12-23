@@ -17,7 +17,7 @@ public class AdminRecipeDAO {
 
 	public int insertBase(Base base) throws Exception { // base데이터 추가
 		Connection conn = DatabaseUtil.open();
-		String sql = "insert into BASE(name,image) values(?,?)";
+		String sql = "insert into Base(name,image) values(?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 			pstmt.setString(1, base.getName());
@@ -33,7 +33,7 @@ public class AdminRecipeDAO {
 
 	public int insertIngredient(Ingredient ingredient) throws Exception { // 재료 데이터 추가
 		Connection conn = DatabaseUtil.open();
-		String sql = "insert into INGREDIENT(name,image) values(?,?)";
+		String sql = "insert into Ingredient(name,image) values(?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 			pstmt.setString(1, ingredient.getName());
@@ -91,7 +91,7 @@ public class AdminRecipeDAO {
 	public int insertCocktailDetail(int drinkId, int ingredientId) throws Exception { // 재료 데이터 추가
 
 		Connection conn = DatabaseUtil.open();
-		String sql = "insert into DRINKDETAIL(DRINK_ID,INGREDIENT_ID) values(?,?)";
+		String sql = "insert into DrinkDetail(drink_id,ingredient_id) values(?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 
@@ -108,7 +108,7 @@ public class AdminRecipeDAO {
 
 	public int insertDetailInfo(String content, String link, int drinkId) throws Exception{
 		Connection conn = DatabaseUtil.open();
-		String sql = "insert into DRINKINFO(DRINKINFO_CONTENT,DRINKINFO_URL, DRINK_ID) values(?,?, ?)";
+		String sql = "insert into DrinkInfo(drinkInfo_content,drinkInfo_url, drink_id) values(?,?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 
