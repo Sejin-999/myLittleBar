@@ -18,7 +18,7 @@ public class DrinkDAO {
 	public List<Base> getBaseAll() throws Exception {
 		Connection conn = DatabaseUtil.open();
 		List<Base> baseList = new ArrayList<>();
-		String sql = "select base_id, name, image from Base";
+		String sql = "SELECT base_id, name, image FROM Base";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		try (conn; pstmt; rs) {
@@ -37,7 +37,7 @@ public class DrinkDAO {
 	public List<Drinks> getDrinkAll(int base_id) throws Exception {
 		Connection conn = DatabaseUtil.open();
 		List<Drinks> drinkList = new ArrayList<>();
-		String sql = "select drink_id, image, name from Drink where base_id=?";
+		String sql = "SELECT drink_id, image, name FROM Drink WHERE base_id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, base_id);
 		ResultSet rs = pstmt.executeQuery();
@@ -56,7 +56,7 @@ public class DrinkDAO {
 	public Base getBase(int base_id) throws Exception {
 		Connection conn = DatabaseUtil.open();
 		Base b = new Base();
-		String sql = "select base_id, image, name from Base where base_id=?";
+		String sql = "SELECT base_id, image, name FROM Base WHERE base_id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, base_id);
 		ResultSet rs = pstmt.executeQuery();
@@ -75,7 +75,7 @@ public class DrinkDAO {
 	public List<Cart> getCart(int user_id) throws Exception {
 		Connection conn = DatabaseUtil.open();
 		List<Cart> usercart = new ArrayList<>();
-		String sql = "select drink_id from Likes where user_id=?";
+		String sql = "SELECT drink_id FROM Likes WHERE user_id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, user_id);
 		ResultSet rs = pstmt.executeQuery();
@@ -114,7 +114,7 @@ public class DrinkDAO {
 	public Drinks getDrink(int drink_id) throws Exception {
 			Connection conn = DatabaseUtil.open();
 			Drinks d = new Drinks();
-			String sql = "select drink_id, name, image from Drink where drink_id=?";
+			String sql = "SELECT drink_id, name, image FROM Drink WHERE drink_id=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, drink_id);
 			ResultSet rs = pstmt.executeQuery();
