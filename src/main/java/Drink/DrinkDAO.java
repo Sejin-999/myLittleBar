@@ -56,7 +56,7 @@ public class DrinkDAO {
 	public Base getBase(int base_id) throws Exception {
 		Connection conn = DatabaseUtil.open();
 		Base b = new Base();
-		String sql = "select base_id, image, name from base where base_id=?";
+		String sql = "select base_id, image, name from Base where base_id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, base_id);
 		ResultSet rs = pstmt.executeQuery();
