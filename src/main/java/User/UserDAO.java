@@ -26,7 +26,7 @@ public class UserDAO {
 
 	public int signUp(Users user) throws Exception { // 회원가입
 		Connection conn = DatabaseUtil.open();
-		String sql = "insert into USERS(email,password,name) values(?,?,?)";
+		String sql = "insert into Users(email,password,name) values(?,?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 			pstmt.setString(1, user.getEmail());
@@ -42,7 +42,7 @@ public class UserDAO {
 
 	public boolean checkDuplicate(String email) throws Exception {
 		Connection conn = DatabaseUtil.open();
-		String sql = "SELECT email FROM USERS WHERE email = ?";
+		String sql = "SELECT email FROM Users WHERE email = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, email);
 		ResultSet rs = pstmt.executeQuery();
@@ -60,7 +60,7 @@ public class UserDAO {
 
 	public SignInDTO signIn(Users user) throws Exception { // 로그인
 		Connection conn = DatabaseUtil.open();
-		String sql = "SELECT password, is_Admin, user_id FROM USERS WHERE email = ?";
+		String sql = "SELECT password, is_Admin, user_id FROM Users WHERE email = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, user.getEmail());
 		ResultSet rs = pstmt.executeQuery();
@@ -85,7 +85,7 @@ public class UserDAO {
 	public List<Users> getUserAll() throws Exception { // 전체 회원정보 가져오기[관리자 기능]
 		Connection conn = DatabaseUtil.open();
 		List<Users> userList = new ArrayList<>();
-		String sql = "select user_id, email, is_admin, name from USERS ORDER BY is_admin DESC";
+		String sql = "select user_id, email, is_admin, name from Users ORDER BY is_admin DESC";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		try (conn; pstmt; rs) {
@@ -103,7 +103,7 @@ public class UserDAO {
 
 	public void deleteUser(int userId) throws SQLException { // 회원 탈퇴기능[관리자 기능]
 		Connection conn = DatabaseUtil.open();
-		String sql = "delete from users where user_id=?";
+		String sql = "delete from Users where user_id=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try (conn; pstmt) {
 			pstmt.setInt(1, userId);
